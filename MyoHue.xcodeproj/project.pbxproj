@@ -1,0 +1,482 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		89242D7819BB93B100D89E42 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89242D7719BB93B100D89E42 /* Cocoa.framework */; };
+		89242D8219BB93B100D89E42 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 89242D8019BB93B100D89E42 /* InfoPlist.strings */; };
+		89242D8419BB93B100D89E42 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 89242D8319BB93B100D89E42 /* main.m */; };
+		89242D8819BB93B100D89E42 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 89242D8619BB93B100D89E42 /* Credits.rtf */; };
+		89242D8B19BB93B100D89E42 /* MYHAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89242D8A19BB93B100D89E42 /* MYHAppDelegate.m */; };
+		89242D8E19BB93B100D89E42 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89242D8C19BB93B100D89E42 /* MainMenu.xib */; };
+		89242D9019BB93B100D89E42 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89242D8F19BB93B100D89E42 /* Images.xcassets */; };
+		89242D9719BB93B100D89E42 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89242D9619BB93B100D89E42 /* XCTest.framework */; };
+		89242D9819BB93B100D89E42 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89242D7719BB93B100D89E42 /* Cocoa.framework */; };
+		89242DA019BB93B100D89E42 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 89242D9E19BB93B100D89E42 /* InfoPlist.strings */; };
+		89242DA219BB93B100D89E42 /* MyoHueTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89242DA119BB93B100D89E42 /* MyoHueTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		89242D9919BB93B100D89E42 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 89242D6C19BB93B100D89E42 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 89242D7319BB93B100D89E42;
+			remoteInfo = MyoHue;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		89242D7419BB93B100D89E42 /* MyoHue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MyoHue.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		89242D7719BB93B100D89E42 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		89242D7A19BB93B100D89E42 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		89242D7B19BB93B100D89E42 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		89242D7C19BB93B100D89E42 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		89242D7F19BB93B100D89E42 /* MyoHue-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MyoHue-Info.plist"; sourceTree = "<group>"; };
+		89242D8119BB93B100D89E42 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		89242D8319BB93B100D89E42 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		89242D8519BB93B100D89E42 /* MyoHue-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MyoHue-Prefix.pch"; sourceTree = "<group>"; };
+		89242D8719BB93B100D89E42 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		89242D8919BB93B100D89E42 /* MYHAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MYHAppDelegate.h; sourceTree = "<group>"; };
+		89242D8A19BB93B100D89E42 /* MYHAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MYHAppDelegate.m; sourceTree = "<group>"; };
+		89242D8D19BB93B100D89E42 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		89242D8F19BB93B100D89E42 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		89242D9519BB93B100D89E42 /* MyoHueTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyoHueTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		89242D9619BB93B100D89E42 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		89242D9D19BB93B100D89E42 /* MyoHueTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MyoHueTests-Info.plist"; sourceTree = "<group>"; };
+		89242D9F19BB93B100D89E42 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		89242DA119BB93B100D89E42 /* MyoHueTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyoHueTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		89242D7119BB93B100D89E42 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89242D7819BB93B100D89E42 /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89242D9219BB93B100D89E42 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89242D9819BB93B100D89E42 /* Cocoa.framework in Frameworks */,
+				89242D9719BB93B100D89E42 /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		89242D6B19BB93B100D89E42 = {
+			isa = PBXGroup;
+			children = (
+				89242D7D19BB93B100D89E42 /* MyoHue */,
+				89242D9B19BB93B100D89E42 /* MyoHueTests */,
+				89242D7619BB93B100D89E42 /* Frameworks */,
+				89242D7519BB93B100D89E42 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		89242D7519BB93B100D89E42 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				89242D7419BB93B100D89E42 /* MyoHue.app */,
+				89242D9519BB93B100D89E42 /* MyoHueTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		89242D7619BB93B100D89E42 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				89242D7719BB93B100D89E42 /* Cocoa.framework */,
+				89242D9619BB93B100D89E42 /* XCTest.framework */,
+				89242D7919BB93B100D89E42 /* Other Frameworks */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		89242D7919BB93B100D89E42 /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				89242D7A19BB93B100D89E42 /* AppKit.framework */,
+				89242D7B19BB93B100D89E42 /* CoreData.framework */,
+				89242D7C19BB93B100D89E42 /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		89242D7D19BB93B100D89E42 /* MyoHue */ = {
+			isa = PBXGroup;
+			children = (
+				89242D8919BB93B100D89E42 /* MYHAppDelegate.h */,
+				89242D8A19BB93B100D89E42 /* MYHAppDelegate.m */,
+				89242D8C19BB93B100D89E42 /* MainMenu.xib */,
+				89242D8F19BB93B100D89E42 /* Images.xcassets */,
+				89242D7E19BB93B100D89E42 /* Supporting Files */,
+			);
+			path = MyoHue;
+			sourceTree = "<group>";
+		};
+		89242D7E19BB93B100D89E42 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				89242D7F19BB93B100D89E42 /* MyoHue-Info.plist */,
+				89242D8019BB93B100D89E42 /* InfoPlist.strings */,
+				89242D8319BB93B100D89E42 /* main.m */,
+				89242D8519BB93B100D89E42 /* MyoHue-Prefix.pch */,
+				89242D8619BB93B100D89E42 /* Credits.rtf */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		89242D9B19BB93B100D89E42 /* MyoHueTests */ = {
+			isa = PBXGroup;
+			children = (
+				89242DA119BB93B100D89E42 /* MyoHueTests.m */,
+				89242D9C19BB93B100D89E42 /* Supporting Files */,
+			);
+			path = MyoHueTests;
+			sourceTree = "<group>";
+		};
+		89242D9C19BB93B100D89E42 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				89242D9D19BB93B100D89E42 /* MyoHueTests-Info.plist */,
+				89242D9E19BB93B100D89E42 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		89242D7319BB93B100D89E42 /* MyoHue */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 89242DA519BB93B100D89E42 /* Build configuration list for PBXNativeTarget "MyoHue" */;
+			buildPhases = (
+				89242D7019BB93B100D89E42 /* Sources */,
+				89242D7119BB93B100D89E42 /* Frameworks */,
+				89242D7219BB93B100D89E42 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MyoHue;
+			productName = MyoHue;
+			productReference = 89242D7419BB93B100D89E42 /* MyoHue.app */;
+			productType = "com.apple.product-type.application";
+		};
+		89242D9419BB93B100D89E42 /* MyoHueTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 89242DA819BB93B100D89E42 /* Build configuration list for PBXNativeTarget "MyoHueTests" */;
+			buildPhases = (
+				89242D9119BB93B100D89E42 /* Sources */,
+				89242D9219BB93B100D89E42 /* Frameworks */,
+				89242D9319BB93B100D89E42 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				89242D9A19BB93B100D89E42 /* PBXTargetDependency */,
+			);
+			name = MyoHueTests;
+			productName = MyoHueTests;
+			productReference = 89242D9519BB93B100D89E42 /* MyoHueTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		89242D6C19BB93B100D89E42 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = MYH;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Gregory Azevedo";
+				TargetAttributes = {
+					89242D9419BB93B100D89E42 = {
+						TestTargetID = 89242D7319BB93B100D89E42;
+					};
+				};
+			};
+			buildConfigurationList = 89242D6F19BB93B100D89E42 /* Build configuration list for PBXProject "MyoHue" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 89242D6B19BB93B100D89E42;
+			productRefGroup = 89242D7519BB93B100D89E42 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				89242D7319BB93B100D89E42 /* MyoHue */,
+				89242D9419BB93B100D89E42 /* MyoHueTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		89242D7219BB93B100D89E42 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89242D8219BB93B100D89E42 /* InfoPlist.strings in Resources */,
+				89242D9019BB93B100D89E42 /* Images.xcassets in Resources */,
+				89242D8819BB93B100D89E42 /* Credits.rtf in Resources */,
+				89242D8E19BB93B100D89E42 /* MainMenu.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89242D9319BB93B100D89E42 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89242DA019BB93B100D89E42 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		89242D7019BB93B100D89E42 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89242D8419BB93B100D89E42 /* main.m in Sources */,
+				89242D8B19BB93B100D89E42 /* MYHAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		89242D9119BB93B100D89E42 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				89242DA219BB93B100D89E42 /* MyoHueTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		89242D9A19BB93B100D89E42 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 89242D7319BB93B100D89E42 /* MyoHue */;
+			targetProxy = 89242D9919BB93B100D89E42 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		89242D8019BB93B100D89E42 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				89242D8119BB93B100D89E42 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		89242D8619BB93B100D89E42 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				89242D8719BB93B100D89E42 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		89242D8C19BB93B100D89E42 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				89242D8D19BB93B100D89E42 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+		89242D9E19BB93B100D89E42 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				89242D9F19BB93B100D89E42 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		89242DA319BB93B100D89E42 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		89242DA419BB93B100D89E42 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		89242DA619BB93B100D89E42 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MyoHue/MyoHue-Prefix.pch";
+				INFOPLIST_FILE = "MyoHue/MyoHue-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		89242DA719BB93B100D89E42 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MyoHue/MyoHue-Prefix.pch";
+				INFOPLIST_FILE = "MyoHue/MyoHue-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		89242DA919BB93B100D89E42 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MyoHue.app/Contents/MacOS/MyoHue";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MyoHue/MyoHue-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "MyoHueTests/MyoHueTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		89242DAA19BB93B100D89E42 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MyoHue.app/Contents/MacOS/MyoHue";
+				COMBINE_HIDPI_IMAGES = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MyoHue/MyoHue-Prefix.pch";
+				INFOPLIST_FILE = "MyoHueTests/MyoHueTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		89242D6F19BB93B100D89E42 /* Build configuration list for PBXProject "MyoHue" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89242DA319BB93B100D89E42 /* Debug */,
+				89242DA419BB93B100D89E42 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		89242DA519BB93B100D89E42 /* Build configuration list for PBXNativeTarget "MyoHue" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89242DA619BB93B100D89E42 /* Debug */,
+				89242DA719BB93B100D89E42 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		89242DA819BB93B100D89E42 /* Build configuration list for PBXNativeTarget "MyoHueTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				89242DA919BB93B100D89E42 /* Debug */,
+				89242DAA19BB93B100D89E42 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 89242D6C19BB93B100D89E42 /* Project object */;
+}
