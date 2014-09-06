@@ -18,6 +18,9 @@
 		89242D9819BB93B100D89E42 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89242D7719BB93B100D89E42 /* Cocoa.framework */; };
 		89242DA019BB93B100D89E42 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 89242D9E19BB93B100D89E42 /* InfoPlist.strings */; };
 		89242DA219BB93B100D89E42 /* MyoHueTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 89242DA119BB93B100D89E42 /* MyoHueTests.m */; };
+		89242DAE19BB971500D89E42 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 89242DAC19BB971500D89E42 /* MainViewController.m */; };
+		89242DAF19BB971500D89E42 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89242DAD19BB971500D89E42 /* MainViewController.xib */; };
+		89242DB119BB972800D89E42 /* rainbow-background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89242DB019BB972800D89E42 /* rainbow-background.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,6 +53,10 @@
 		89242D9D19BB93B100D89E42 /* MyoHueTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MyoHueTests-Info.plist"; sourceTree = "<group>"; };
 		89242D9F19BB93B100D89E42 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		89242DA119BB93B100D89E42 /* MyoHueTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyoHueTests.m; sourceTree = "<group>"; };
+		89242DAB19BB971500D89E42 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		89242DAC19BB971500D89E42 /* MainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
+		89242DAD19BB971500D89E42 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
+		89242DB019BB972800D89E42 /* rainbow-background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "rainbow-background.jpg"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +124,11 @@
 			children = (
 				89242D8919BB93B100D89E42 /* MYHAppDelegate.h */,
 				89242D8A19BB93B100D89E42 /* MYHAppDelegate.m */,
+				89242DAB19BB971500D89E42 /* MainViewController.h */,
+				89242DAC19BB971500D89E42 /* MainViewController.m */,
+				89242DAD19BB971500D89E42 /* MainViewController.xib */,
 				89242D8C19BB93B100D89E42 /* MainMenu.xib */,
+				89242DB019BB972800D89E42 /* rainbow-background.jpg */,
 				89242D8F19BB93B100D89E42 /* Images.xcassets */,
 				89242D7E19BB93B100D89E42 /* Supporting Files */,
 			);
@@ -231,8 +242,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89242DB119BB972800D89E42 /* rainbow-background.jpg in Resources */,
 				89242D8219BB93B100D89E42 /* InfoPlist.strings in Resources */,
 				89242D9019BB93B100D89E42 /* Images.xcassets in Resources */,
+				89242DAF19BB971500D89E42 /* MainViewController.xib in Resources */,
 				89242D8819BB93B100D89E42 /* Credits.rtf in Resources */,
 				89242D8E19BB93B100D89E42 /* MainMenu.xib in Resources */,
 			);
@@ -254,6 +267,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				89242D8419BB93B100D89E42 /* main.m in Sources */,
+				89242DAE19BB971500D89E42 /* MainViewController.m in Sources */,
 				89242D8B19BB93B100D89E42 /* MYHAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -467,6 +481,7 @@
 				89242DA719BB93B100D89E42 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		89242DA819BB93B100D89E42 /* Build configuration list for PBXNativeTarget "MyoHueTests" */ = {
 			isa = XCConfigurationList;
@@ -475,6 +490,7 @@
 				89242DAA19BB93B100D89E42 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
