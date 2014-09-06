@@ -13,7 +13,7 @@
 @property (weak) IBOutlet NSButton *lightsButton;
 @property (weak) IBOutlet NSButton *musicButton;
 @property (nonatomic) BOOL lightOn;
-
+@property (nonatomic) NSTimer *timer;
 @end
 
 @implementation MainViewController
@@ -55,13 +55,16 @@
     }
     
     if([self.lightsButton state] == 1){
-          [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(strobeLights) userInfo:nil repeats:YES];
+          self.timer = [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(strobeLights) userInfo:nil repeats:YES];
+    }else{
+        [self.timer invalidate];
     }
 }
 
 - (IBAction)musicButtonPushed:(id)sender {
     if([self.lightsButton state] == 1){
         [self.lightsButton setState:0];
+        [self.timer invalidate];
     }
     
     if([self.musicButton state] == 1)
