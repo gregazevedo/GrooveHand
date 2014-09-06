@@ -7,7 +7,8 @@
 //
 
 #import <Cocoa/Cocoa.h>
+#import "MyoStuff.h"
 
-@interface MainViewController : NSViewController
+@interface MainViewController : NSViewController <MyoDelegate>
 
 @end
