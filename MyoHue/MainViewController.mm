@@ -19,6 +19,8 @@
 @property (nonatomic) Myo *myMyo;
 @property (nonatomic) NSMutableArray *hueColors;
 @property (nonatomic) int index;
+@property (nonatomic) NSNumber *initialColor;
+
 @end
 
 @implementation MainViewController
@@ -27,10 +29,7 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        // Initialization code here.
-        //self.hueColors = [[NSArray alloc] initWithObjects:@2, @15000, @60000, nil];
         self.hueColors = [NSMutableArray new];
-        [self createColors];
         self.index = 0;
     }
     return self;
@@ -38,21 +37,8 @@
 
 -(void)awakeFromNib{
     [super awakeFromNib];
-    NSString *urlString = [NSString stringWithFormat:@"http://192.168.2.2/api/newdeveloper/lights/3"];
-    NSURL *url = [NSURL URLWithString:urlString];
-    
-    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] init];
-    [request setURL:url];
-    NSString *method = @"GET";
-    [request setHTTPMethod:method];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        
-        NSDictionary *lightDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        // Add to internal state
-        NSNumber *dict = [[lightDict objectForKey:@"state"] objectForKey:@"on"];
-        self.lightOn = [dict isEqualToNumber:@1] ? YES : NO;
-    }];
-    NSLog(@"strobe to %i", self.lightOn);
+    [self retrieveInitialHueInfo];
+    [self createColors];
     
     self.myMyo = [[Myo alloc] initWithApplicationIdentifier:@"com.example.myoobjc"];
     BOOL found = false;
@@ -70,7 +56,6 @@
     }
     
     if([self.lightsButton state] == 1){
-          //self.timer = [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(strobeLights) userInfo:nil repeats:YES];
         [self.myMyo startUpdate];
 
     }else{
@@ -86,35 +71,6 @@
     
     if([self.musicButton state] == 1)
         NSLog(@"Pressed music");
-}
-
--(void)strobeLights{
-    NSString *urlString = [NSString stringWithFormat:@"http://192.168.2.2/api/newdeveloper/lights/3/state/"];
-    NSURL *url = [NSURL URLWithString:urlString];
-    
-    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] init];
-    [request setURL:url];
-    
-    NSString *jsonBody;
-    if(self.lightOn){
-        jsonBody = [NSString stringWithFormat: @"{\"on\":false, \"transitiontime\":1}"];
-        self.lightOn = false;
-    }else{
-        jsonBody = [NSString stringWithFormat: @"{\"on\":true}"];
-        self.lightOn = true;
-    }
-    
-    NSData* bodyData = [jsonBody dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-    NSString* postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[bodyData length]];
-    NSString *method = @"PUT";
-    
-    [request setHTTPMethod:method];
-    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPBody:bodyData];
-    
-    [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    NSLog(@"strobe to %i", self.lightOn);
 }
 
 -(void)myoOnConnect:(Myo *)myo
@@ -157,32 +113,15 @@
 {
     NSLog(@"posed : %u",pose.poseType);
     if (pose.poseType == MyoPoseTypeFingersSpread){
-        NSString *urlString = [NSString stringWithFormat:@"http://192.168.2.2/api/newdeveloper/lights/3/state/"];
-        NSURL *url = [NSURL URLWithString:urlString];
-        
-        NSMutableURLRequest* request = [[NSMutableURLRequest alloc] init];
-        [request setURL:url];
-        
-        NSString *jsonBody;
+        NSString *messageBody;
         if(self.lightOn){
-            jsonBody = [NSString stringWithFormat: @"{\"on\":false, \"transitiontime\":1}"];
+            messageBody = [NSString stringWithFormat: @"{\"on\":false, \"transitiontime\":1}"];
             self.lightOn = false;
         }else{
-            jsonBody = [NSString stringWithFormat: @"{\"on\":true}"];
+            messageBody = [NSString stringWithFormat: @"{\"on\":true, \"transitiontime\":1}"];
             self.lightOn = true;
         }
-        
-        NSData* bodyData = [jsonBody dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-        NSString* postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[bodyData length]];
-        NSString *method = @"PUT";
-        
-        [request setHTTPMethod:method];
-        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        [request setHTTPBody:bodyData];
-        
-        [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-        NSLog(@"strobe to %i", self.lightOn);
+        [self updateHueWithMessageBody:messageBody];
     }
     
     if (pose.poseType == MyoPoseTypeWaveOut) {
@@ -190,26 +129,9 @@
             self.index = 0;
         else
             self.index++;
-
-        NSString *urlString = [NSString stringWithFormat:@"http://192.168.2.2/api/newdeveloper/lights/3/state/"];
-        NSURL *url = [NSURL URLWithString:urlString];
         
-        NSMutableURLRequest* request = [[NSMutableURLRequest alloc] init];
-        [request setURL:url];
-        
-        NSString *jsonBody = [NSString stringWithFormat: @"{\"hue\":%@}", [self.hueColors objectAtIndex:self.index]];
-        
-        NSData* bodyData = [jsonBody dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-        NSString* postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[bodyData length]];
-        NSString *method = @"PUT";
-        
-        [request setHTTPMethod:method];
-        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        [request setHTTPBody:bodyData];
-        
-        [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-        
+        NSString *messageBody = [NSString stringWithFormat: @"{\"hue\":%@}", [self.hueColors objectAtIndex:self.index]];
+        [self updateHueWithMessageBody:messageBody];
     }
     
     if (pose.poseType == MyoPoseTypeWaveIn){
@@ -217,32 +139,55 @@
             self.index = 19;
         else
             self.index--;
-        NSString *urlString = [NSString stringWithFormat:@"http://192.168.2.2/api/newdeveloper/lights/3/state/"];
-        NSURL *url = [NSURL URLWithString:urlString];
         
-        NSMutableURLRequest* request = [[NSMutableURLRequest alloc] init];
-        [request setURL:url];
-        
-        NSString *jsonBody = [NSString stringWithFormat: @"{\"hue\":%@}", [self.hueColors objectAtIndex:self.index]];
-        
-        NSData* bodyData = [jsonBody dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-        NSString* postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[bodyData length]];
-        NSString *method = @"PUT";
-        
-        [request setHTTPMethod:method];
-        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        [request setHTTPBody:bodyData];
-        
-        [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+        NSString *messageBody = [NSString stringWithFormat: @"{\"hue\":%@}", [self.hueColors objectAtIndex:self.index]];
+        [self updateHueWithMessageBody:messageBody];
     }
     //[myo vibrateWithType:MyoVibrationTypeShort];
 }
 
+-(void)updateHueWithMessageBody:(NSString *)messageBody{
+    NSString *urlString = [NSString stringWithFormat:@"http://192.168.2.2/api/newdeveloper/lights/3/state/"];
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] init];
+    [request setURL:url];
+    
+    NSData* bodyData = [messageBody dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    NSString* postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[bodyData length]];
+    NSString *method = @"PUT";
+    
+    [request setHTTPMethod:method];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:bodyData];
+    
+    [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+}
+
+-(void)retrieveInitialHueInfo{
+    NSString *urlString = [NSString stringWithFormat:@"http://192.168.2.2/api/newdeveloper/lights/3"];
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] init];
+    [request setURL:url];
+    NSString *method = @"GET";
+    [request setHTTPMethod:method];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        
+        NSDictionary *lightDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        // Add to internal state
+        NSNumber *dict = [[lightDict objectForKey:@"state"] objectForKey:@"on"];
+        NSNumber *initialColor = [[lightDict objectForKey:@"state"] objectForKey:@"hue"];
+        self.lightOn = [dict isEqualToNumber:@1] ? YES : NO;
+        self.initialColor = initialColor;
+    }];
+
+}
+
+
 -(void)createColors{
-    //colors[0] = initialColor;
-    [self.hueColors addObject:@2000];
-    //std::cout << "initial " << initialColor << std::endl;
+    [self.hueColors addObject:self.initialColor];
     for(int i = 1; i < 20; i++) {
         [self.hueColors addObject:[NSNumber numberWithInt:(rand() % 65535)]];
     }
