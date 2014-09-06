@@ -20,6 +20,7 @@
 @property (nonatomic) NSMutableArray *hueColors;
 @property (nonatomic) int index;
 @property (nonatomic) NSNumber *initialColor;
+@property (nonatomic) BOOL isPartyMode;
 
 @end
 
@@ -31,6 +32,7 @@
     if (self) {
         self.hueColors = [NSMutableArray new];
         self.index = 0;
+        self.isPartyMode = false;
     }
     return self;
 }
@@ -143,6 +145,19 @@
         NSString *messageBody = [NSString stringWithFormat: @"{\"hue\":%@}", [self.hueColors objectAtIndex:self.index]];
         [self updateHueWithMessageBody:messageBody];
     }
+    
+    if (pose.poseType == MyoPoseTypeThumbToPinky) {
+        if(self.isPartyMode) {
+            NSString *messageBody = [NSString stringWithFormat: @"{\"effect\":\"none\"}"];
+            [self updateHueWithMessageBody:messageBody];
+            self.isPartyMode = false;
+        } else {
+            NSString *messageBody = [NSString stringWithFormat: @"{\"effect\":\"colorloop\"}"];
+            [self updateHueWithMessageBody:messageBody];
+            self.isPartyMode = true;
+        }
+    }
+    
     //[myo vibrateWithType:MyoVibrationTypeShort];
 }
 
@@ -184,7 +199,6 @@
     }];
 
 }
-
 
 -(void)createColors{
     [self.hueColors addObject:self.initialColor];
