@@ -21,8 +21,9 @@
 		89242DAE19BB971500D89E42 /* MainViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 89242DAC19BB971500D89E42 /* MainViewController.mm */; };
 		89242DAF19BB971500D89E42 /* MainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 89242DAD19BB971500D89E42 /* MainViewController.xib */; };
 		89242DB119BB972800D89E42 /* rainbow-background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 89242DB019BB972800D89E42 /* rainbow-background.jpg */; };
-		FAA184E819BB9C9C005ABEE2 /* myo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAA184E719BB9C9C005ABEE2 /* myo.framework */; };
-		FAA184F019BBA183005ABEE2 /* myo.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = FAA184E719BB9C9C005ABEE2 /* myo.framework */; };
+		89242DC419BBCA2200D89E42 /* MainViewController+MyoDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89242DC319BBCA2200D89E42 /* MainViewController+MyoDelegate.m */; };
+		89242DC619BBD64000D89E42 /* myo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89242DC519BBD64000D89E42 /* myo.framework */; };
+		89242DC719BBD66000D89E42 /* myo.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 89242DC519BBD64000D89E42 /* myo.framework */; };
 		FAA184F119BBA41F005ABEE2 /* MyoStuff.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAA184ED19BB9FF7005ABEE2 /* MyoStuff.mm */; };
 /* End PBXBuildFile section */
 
@@ -43,7 +44,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				FAA184F019BBA183005ABEE2 /* myo.framework in CopyFiles */,
+				89242DC719BBD66000D89E42 /* myo.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,7 +74,9 @@
 		89242DAC19BB971500D89E42 /* MainViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MainViewController.mm; sourceTree = "<group>"; };
 		89242DAD19BB971500D89E42 /* MainViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MainViewController.xib; sourceTree = "<group>"; };
 		89242DB019BB972800D89E42 /* rainbow-background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "rainbow-background.jpg"; sourceTree = "<group>"; };
-		FAA184E719BB9C9C005ABEE2 /* myo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = myo.framework; path = ../../../Downloads/sdk/myo.framework; sourceTree = "<group>"; };
+		89242DC219BBCA2200D89E42 /* MainViewController+MyoDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MainViewController+MyoDelegate.h"; sourceTree = "<group>"; };
+		89242DC319BBCA2200D89E42 /* MainViewController+MyoDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MainViewController+MyoDelegate.m"; sourceTree = "<group>"; };
+		89242DC519BBD64000D89E42 /* myo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = myo.framework; path = MyoHue/myo.framework; sourceTree = "<group>"; };
 		FAA184EC19BB9FF7005ABEE2 /* MyoStuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyoStuff.h; sourceTree = "<group>"; };
 		FAA184ED19BB9FF7005ABEE2 /* MyoStuff.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyoStuff.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -83,7 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FAA184E819BB9C9C005ABEE2 /* myo.framework in Frameworks */,
+				89242DC619BBD64000D89E42 /* myo.framework in Frameworks */,
 				89242D7819BB93B100D89E42 /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -122,7 +125,7 @@
 		89242D7619BB93B100D89E42 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FAA184E719BB9C9C005ABEE2 /* myo.framework */,
+				89242DC519BBD64000D89E42 /* myo.framework */,
 				89242D7719BB93B100D89E42 /* Cocoa.framework */,
 				89242D9619BB93B100D89E42 /* XCTest.framework */,
 				89242D7919BB93B100D89E42 /* Other Frameworks */,
@@ -147,11 +150,12 @@
 				89242D8A19BB93B100D89E42 /* MYHAppDelegate.m */,
 				89242DAB19BB971500D89E42 /* MainViewController.h */,
 				89242DAC19BB971500D89E42 /* MainViewController.mm */,
+				89242DC219BBCA2200D89E42 /* MainViewController+MyoDelegate.h */,
+				89242DC319BBCA2200D89E42 /* MainViewController+MyoDelegate.m */,
 				FAA184EC19BB9FF7005ABEE2 /* MyoStuff.h */,
 				FAA184ED19BB9FF7005ABEE2 /* MyoStuff.mm */,
 				89242DAD19BB971500D89E42 /* MainViewController.xib */,
 				89242D8C19BB93B100D89E42 /* MainMenu.xib */,
-				89242DB019BB972800D89E42 /* rainbow-background.jpg */,
 				89242D8F19BB93B100D89E42 /* Images.xcassets */,
 				89242D7E19BB93B100D89E42 /* Supporting Files */,
 			);
@@ -161,6 +165,7 @@
 		89242D7E19BB93B100D89E42 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				89242DB019BB972800D89E42 /* rainbow-background.jpg */,
 				89242D7F19BB93B100D89E42 /* MyoHue-Info.plist */,
 				89242D8019BB93B100D89E42 /* InfoPlist.strings */,
 				89242D8319BB93B100D89E42 /* main.m */,
@@ -290,6 +295,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				89242DC419BBCA2200D89E42 /* MainViewController+MyoDelegate.m in Sources */,
 				FAA184F119BBA41F005ABEE2 /* MyoStuff.mm in Sources */,
 				89242D8419BB93B100D89E42 /* main.m in Sources */,
 				89242DAE19BB971500D89E42 /* MainViewController.mm in Sources */,
@@ -428,7 +434,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/Alex/Downloads/sdk,
+					"$(PROJECT_DIR)/MyoHue",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MyoHue/MyoHue-Prefix.pch";
@@ -446,7 +452,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/Alex/Downloads/sdk,
+					"$(PROJECT_DIR)/MyoHue",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MyoHue/MyoHue-Prefix.pch";

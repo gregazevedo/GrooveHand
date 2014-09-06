@@ -40,7 +40,7 @@ public:
         }
     }
     
-    void onAccelerometerData(Myo* myo, uint64_t timestamp, const myo::Vector3<float>& accel)
+    void onAccelerometerData(myo::Myo* myo, uint64_t timestamp, const myo::Vector3<float>& accel)
     {
         MyoVector *vector = [[MyoVector alloc] initWithX:accel.x() y:accel.y() z:accel.z()];
         if ([_myo.delegate respondsToSelector:@selector(myo:onAccelerometerDataWithVector:)]) {
@@ -49,7 +49,7 @@ public:
     }
     
     /// Called when a paired Myo has provided new gyroscope data in units of deg/s.
-    void onGyroscopeData(Myo* myo, uint64_t timestamp, const myo::Vector3<float>& gyro)
+    void onGyroscopeData(myo::Myo* myo, uint64_t timestamp, const myo::Vector3<float>& gyro)
     {
         MyoVector *vector = [[MyoVector alloc] initWithX:gyro.x() y:gyro.y() z:gyro.z()];
         if ([_myo.delegate respondsToSelector:@selector(myo:onGyroscopeDataWithVector:)]) {
@@ -215,10 +215,13 @@ public:
 }
 @end
 
+
+
+
 #pragma mark - MYO
 
 
-@implementation Myo{
+@implementation Myo {
     myo::Hub hub;
     myo::Myo* myo;
     DataCollector collector;
@@ -255,10 +258,11 @@ public:
         //Background Thread
         while (update) {
             hub.run(_updateTime);
-            //            collector.print();
+            collector.print();
         }
         dispatch_async(dispatch_get_main_queue(), ^(void){
             //Run UI Updates
+            NSLog(@"run ui updates");
         });
     });
 }
@@ -279,6 +283,6 @@ public:
             myo->vibrate(myo::Myo::vibrationMedium);
             break;
     }
-    
 }
+
 @end

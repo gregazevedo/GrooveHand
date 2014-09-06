@@ -10,7 +10,7 @@
 
 @class Myo;
 
-#pragma mark - MYOPOSE
+#pragma mark - MYO POSE
 typedef enum MyoPoseType {
     MyoPoseTypeFist = 0,
     MyoPoseTypeFingersSpread = 1,
@@ -18,9 +18,13 @@ typedef enum MyoPoseType {
     MyoPoseTypeWaveOut = 3,
     MyoPoseTypeThumbToPinky = 4
 } MyoPoseType;
+
 @interface MyoPose : NSObject
+
 @property (nonatomic)MyoPoseType poseType;
+
 @end
+
 
 @interface MyoVector : NSObject
 {
@@ -41,11 +45,16 @@ typedef enum MyoPoseType {
 -(MyoVector*)normalized;
 -(MyoVector*)crossProductWithVector:(MyoVector*)rhs;
 -(float)angleWithVector:(MyoVector *)rhs;
+
 @end
 
-#pragma mark - MYODELEGATE
+
+#pragma mark - MYO DELEGATE
+
 @protocol MyoDelegate <NSObject>
+
 @optional
+
 -(void)myoOnArmLost:(Myo*)myo;
 -(void)myoOnArmRecognized:(Myo*)myo;
 -(void)myoOnPair:(Myo*)myo;
@@ -56,6 +65,7 @@ typedef enum MyoPoseType {
 -(void)myo:(Myo*)myo onAccelerometerDataWithVector:(MyoVector*)vector;
 -(void)myo:(Myo*)myo onGyroscopeDataWithVector:(MyoVector*)vector;
 -(void)myo:(Myo*)myo onRssi:(int8_t)rssi;
+
 @end
 
 
@@ -68,6 +78,7 @@ typedef enum MyoVibrationType {
 
 #pragma mark - MYO
 @interface Myo : NSObject
+
 - (instancetype)initWithApplicationIdentifier:(NSString*)identifier;
 -(BOOL)connectMyoWaiting:(int)milliseconds;
 -(void)startUpdate;
@@ -75,5 +86,5 @@ typedef enum MyoVibrationType {
 -(void)vibrateWithType:(MyoVibrationType)type;
 
 @property (nonatomic) int updateTime;
-@property (nonatomic, assign) id<MyoDelegate> delegate;
+@property (nonatomic, assign) id <MyoDelegate> delegate;
 @end
