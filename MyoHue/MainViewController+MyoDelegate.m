@@ -34,7 +34,6 @@
 
 -(void)myo:(Myo *)myo onGyroscopeDataWithVector:(MyoVector*)vector
 {
-    
     if (vector.y > self.highY) {
         self.highY = vector.y;
         self.lowY = vector.y;

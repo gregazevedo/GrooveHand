@@ -117,6 +117,8 @@
     }
     _mode = mode;
     [self.myMyo startUpdate];
+    NSString *messageBody = [NSString stringWithFormat: @"{\"alert\":\"select\"}"];
+    [self.lights updateHueWithMessageBody:messageBody];
 }
 
 @end

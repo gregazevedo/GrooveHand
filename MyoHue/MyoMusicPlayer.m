@@ -9,6 +9,7 @@
 #import "MyoMusicPlayer.h"
 
 @interface MyoMusicPlayer()
+
 @property (nonatomic) AVAudioPlayer *songPlayer;
 @property (nonatomic) NSArray *songList;
 @property (nonatomic) int songIndex;
@@ -16,6 +17,8 @@
 @property (nonatomic) float currentVolume;
 
 @end
+
+
 @implementation MyoMusicPlayer
 
 - (instancetype)init
