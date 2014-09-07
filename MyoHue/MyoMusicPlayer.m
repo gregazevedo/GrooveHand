@@ -68,7 +68,7 @@
 
 -(void)playLastSong {
     if(self.songIndex == 0) {
-        self.songIndex = 14;
+        self.songIndex = 16;
     } else {
         self.songIndex--;
     }
@@ -87,9 +87,9 @@
 -(NSArray *)songList
 {
     if (!_songList) {
-        _songList = @[@"YoungBlood",@"SweetNothing", @"NeverLetYouGo", @"ShakeItOut", @"APunk",@"Daylight",@"OneHeadlight",@"RedHands",@"DropsofJupiter",
-                      @"CrookedTeeth",@"SweetDisposition",@"Houdini",
-                      @"LittleSecrets",@"Years",@"TimeToPretend"];
+        _songList = @[@"Latch", @"TakeMeHome", @"YoungBlood", @"Gold", @"NeverLetYouGo", @"APunk",
+                      @"Flaws", @"CarriedAway", @"KillingSwitch", @"ThinkingAboutYou", @"IChooseU", @"Daylight",
+                      @"CrookedTeeth", @"ACWonder", @"SweetDisposition", @"Houdini", @"LittleSecrets"];
     }
     return _songList;
 }
