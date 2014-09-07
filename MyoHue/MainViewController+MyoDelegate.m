@@ -49,9 +49,9 @@
 {
 //    NSLog(@"orientation roll %i pitch %i yaw %i", roll, pitch, yaw);
 
-    if (self.state == MYHStateAdjustingBrightness) {
+    if (self.lights.state == MYHStateAdjustingBrightness) {
         int fistedRollChange = roll-self.latestNoFistRoll;
-        [self adjustBrightnessWithRotation:fistedRollChange];
+        [self.lights adjustBrightnessWithRotation:fistedRollChange];
     }
     else {
         self.latestNoFistRoll = roll;
@@ -65,9 +65,9 @@
 
 -(void)updateLightsForPose:(MyoPoseType)pose
 {
-    self.state = MYHStateDefault;
-    NSLog(@"Current Pose: %@", pose);
-    switch (pose.poseType) {
+    self.lights.state = MYHStateDefault;
+    NSLog(@"Current Pose: %i", pose);
+    switch (pose) {
         case MyoPoseTypeRest:
             break;
         case MyoPoseTypeFingersSpread:
@@ -80,7 +80,7 @@
             [self.lights updateToPreviousHue];
             break;
         case MyoPoseTypeFist:
-            self.state = MYHStateAdjustingBrightness;
+            self.lights.state = MYHStateAdjustingBrightness;
             break;
         case MyoPoseTypeThumbToPinky:
             [self.lights togglePartyMode];
