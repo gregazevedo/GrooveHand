@@ -29,6 +29,7 @@
         self.hueColors = [NSMutableArray array];
         [self createColors];
         self.index = 0;
+        self.isPartyMode = false;
     }
     return self;
 }
@@ -66,7 +67,6 @@
         [self.musicButton setState:0];
     }
     if([self.lightsButton state] == 1){
-          //self.timer = [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(strobeLights) userInfo:nil repeats:YES];
         [self.myMyo startUpdate];
     }else{
         [self.timer invalidate];
