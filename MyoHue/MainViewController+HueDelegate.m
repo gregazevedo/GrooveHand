@@ -10,6 +10,94 @@
 
 @implementation MainViewController (HueDelegate)
 
+-(void)toggleLightOn
+{
+    NSString *messageBody;
+    if(self.lightOn){
+        messageBody = [NSString stringWithFormat: @"{\"on\":false, \"transitiontime\":1}"];
+        self.lightOn = false;
+    }else{
+        messageBody = [NSString stringWithFormat: @"{\"on\":true, \"transitiontime\":1}"];
+        self.lightOn = true;
+    }
+    [self updateHueWithMessageBody:messageBody];
+}
+
+-(void)togglePartyMode
+{
+    if(self.isPartyMode) {
+        NSString *messageBody = [NSString stringWithFormat: @"{\"effect\":\"none\"}"];
+        [self updateHueWithMessageBody:messageBody];
+        self.isPartyMode = false;
+    } else {
+        NSString *messageBody = [NSString stringWithFormat: @"{\"effect\":\"colorloop\"}"];
+//        [self updateHueWithMessageBody:messageBody];
+        self.isPartyMode = true;
+    }
+}
+
+-(void)updateToNextHue
+{
+    if(self.index == 19)
+        self.index = 0;
+    else
+        self.index++;
+    
+    NSString *messageBody = [NSString stringWithFormat: @"{\"hue\":%@}", [self.hueColors objectAtIndex:self.index]];
+    [self updateHueWithMessageBody:messageBody];
+}
+
+-(void)updateToPreviousHue
+{
+    if(self.index == 0)
+        self.index = 19;
+    else
+        self.index--;
+    
+    NSString *messageBody = [NSString stringWithFormat: @"{\"hue\":%@}", [self.hueColors objectAtIndex:self.index]];
+    [self updateHueWithMessageBody:messageBody];
+}
+
+-(void)increaseBrightness
+{
+    self.currentBrightness = [NSNumber numberWithInt:([self.currentBrightness intValue] + 25)];
+    if ([self.currentBrightness intValue] < 0) {
+        self.currentBrightness = @0;
+    } else if ([self.currentBrightness intValue] > 255) {
+        self.currentBrightness = @255;
+    }
+    NSString *messageBody = [NSString stringWithFormat: @"{\"bri\":%@}", self.currentBrightness];
+    [self updateHueWithMessageBody:messageBody];
+}
+
+-(void)decreaseBrightness
+{
+    self.currentBrightness = [NSNumber numberWithInt:([self.currentBrightness intValue] - 25)];
+    if ([self.currentBrightness intValue] < 0) {
+        self.currentBrightness = @0;
+    } else if ([self.currentBrightness intValue] > 255) {
+        self.currentBrightness = @255;
+    }
+    NSString *messageBody = [NSString stringWithFormat: @"{\"bri\":%@}", self.currentBrightness];
+    [self updateHueWithMessageBody:messageBody];
+}
+
+-(void)adjustBrightnessWithRotation:(int)rotation
+{
+    BOOL isIncreasingBrightness = (BOOL)self.brightnessIncreaseTimer;
+    BOOL isDecreasingBrightness = (BOOL)self.brightnessDecreaseTimer;
+    BOOL shouldIncrease = rotation > 0;
+    BOOL shouldDecrease = rotation < 0;
+    
+    if (shouldIncrease && !isIncreasingBrightness) {
+        self.brightnessIncreaseTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(increaseBrightness) userInfo:nil repeats:YES];
+        self.brightnessDecreaseTimer = nil;
+    } else if (shouldDecrease && !isDecreasingBrightness) {
+        self.brightnessDecreaseTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(decreaseBrightness) userInfo:nil repeats:YES];
+        self.brightnessIncreaseTimer = nil;
+    }
+}
+
 -(void)createColors {
     self.hueColors = [NSMutableArray array];
     NSNumber *firstColor = self.initialColor ? self.initialColor : @0; //0 is red
@@ -55,7 +143,7 @@
     [request setHTTPBody:bodyData];
     
     [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    NSLog(@"strobe to %i", self.lightOn);
+//    NSLog(@"strobe to %i", self.lightOn);
 }
 
 @end

@@ -38,76 +38,60 @@
 -(void)myo:(Myo *)myo onGyroscopeDataWithVector:(MyoVector*)vector
 {
 //    NSLog(@"gyroscope x %f y %f z %f mag %f", vector.x, vector.y, vector.z, vector.magnitude);
-    
-    int x = (int)roundf(vector.x);
-    x -= x % 10;
-    NSLog(@"rotation %i", x);
+    int x = (int)vector.x;
+    x = vector.usbTowardsWrist ? x : -x;
+    //    x -= x % 10;
+//    NSLog(@"rotation vec x %f int x %i", vector.x, x);
 
-    
-    NSNumber *adjustedBrightness = [NSNumber numberWithInt:([self.currentBrightness intValue] + x )];
-    if (self.state == MYHStateAdjustingBrightness) {
-        NSString *messageBody = [NSString stringWithFormat: @"{\"bri\":%@}", adjustedBrightness];
-        [self updateHueWithMessageBody:messageBody];
-    }
+
 }
+
 -(void)myo:(Myo *)myo onOrientationDataWithRoll:(int)roll pitch:(int)pitch yaw:(int)yaw
 {
 //    NSLog(@"orientation roll %i pitch %i yaw %i", roll, pitch, yaw);
+
+    if (self.state == MYHStateAdjustingBrightness) {
+        int fistedRollChange = self.latestNoFistRoll - roll;
+        [self adjustBrightnessWithRotation:fistedRollChange];
+        NSLog(@"adjusting brightness to %i", fistedRollChange);
+    }
+    else {
+        self.latestNoFistRoll = roll;
+//        self.currentBrightness = [NSNumber numberWithInt:roll];
+    }
 }
+
 -(void)myo:(Myo *)myo onRssi:(int8_t)rssi
 {
     NSLog(@"Myo on rssi");
 }
+
 -(void)myo:(Myo *)myo onPose:(MyoPose *)pose
 {
-    NSLog(@"posed : %u",pose.poseType);
-    if (pose.poseType == MyoPoseTypeFingersSpread) {
-        NSString *messageBody;
-        if(self.lightOn){
-            messageBody = [NSString stringWithFormat: @"{\"on\":false, \"transitiontime\":1}"];
-            self.lightOn = false;
-        }else{
-            messageBody = [NSString stringWithFormat: @"{\"on\":true, \"transitiontime\":1}"];
-            self.lightOn = true;
-        }
-        [self updateHueWithMessageBody:messageBody];
+    self.state = MYHStateDefault;
+    
+    switch (pose.poseType) {
+        case MyoPoseTypeRest:
+            
+            break;
+        case MyoPoseTypeFingersSpread:
+            [self toggleLightOn];
+            break;
+        case MyoPoseTypeWaveOut:
+            [self updateToNextHue];
+            break;
+        case MyoPoseTypeWaveIn:
+            [self updateToPreviousHue];
+            break;
+        case MyoPoseTypeFist:
+            self.state = MYHStateAdjustingBrightness;
+            
+            break;
+        case MyoPoseTypeThumbToPinky:
+            [self togglePartyMode];
+            break;
     }
     
-    if (pose.poseType == MyoPoseTypeWaveOut) {
-        if(self.index == 19)
-            self.index = 0;
-        else
-            self.index++;
-        
-        NSString *messageBody = [NSString stringWithFormat: @"{\"hue\":%@}", [self.hueColors objectAtIndex:self.index]];
-        [self updateHueWithMessageBody:messageBody];
-    }
-    
-    if (pose.poseType == MyoPoseTypeWaveIn){
-        if(self.index == 0)
-            self.index = 19;
-        else
-            self.index--;
-        
-        NSString *messageBody = [NSString stringWithFormat: @"{\"hue\":%@}", [self.hueColors objectAtIndex:self.index]];
-        [self updateHueWithMessageBody:messageBody];
-    }
-    
-    if (pose.poseType == MyoPoseTypeThumbToPinky) {
-        if(self.isPartyMode) {
-            NSString *messageBody = [NSString stringWithFormat: @"{\"effect\":\"none\"}"];
-            [self updateHueWithMessageBody:messageBody];
-            self.isPartyMode = false;
-        } else {
-            NSString *messageBody = [NSString stringWithFormat: @"{\"effect\":\"colorloop\"}"];
-            [self updateHueWithMessageBody:messageBody];
-            self.isPartyMode = true;
-        }
-    }
-    
-    if (pose.poseType == MyoPoseTypeFist) {
-        self.state = MYHStateAdjustingBrightness;
-    }
     
     //[myo vibrateWithType:MyoVibrationTypeShort];
 }

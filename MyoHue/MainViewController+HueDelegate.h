@@ -13,5 +13,10 @@
 -(void)retrieveInitialHueInfo;
 -(void)updateHueWithMessageBody:(NSString *)messageBody;
 -(void)createColors;
+-(void)toggleLightOn;
+-(void)togglePartyMode;
+-(void)updateToNextHue;
+-(void)updateToPreviousHue;
+-(void)adjustBrightnessWithRotation:(int)rotation;
 
 @end

@@ -25,4 +25,10 @@ typedef NS_ENUM(NSUInteger, MYHState) {
 @property (nonatomic) NSNumber *currentBrightness;
 @property (nonatomic) MYHState state;
 
+@property (nonatomic) NSTimer *brightnessIncreaseTimer;
+@property (nonatomic) NSTimer *brightnessDecreaseTimer;
+
+
+@property (nonatomic) int latestNoFistRoll;
+
 @end

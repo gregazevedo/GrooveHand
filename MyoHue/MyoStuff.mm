@@ -14,7 +14,7 @@
 class DataCollector : public myo::DeviceListener {
 public:
     DataCollector()
-    : onArm(false), roll_w(0), pitch_w(0), yaw_w(0), currentPose()
+    : onArm(false), roll_w(0), pitch_w(0), yaw_w(0), currentPose(), initalRoll(0), currentRoll(0)
     {
     }
     void onOrientationData(myo::Myo* myo, uint64_t timestamp, const myo::Quaternion<float>& quat)
@@ -30,19 +30,27 @@ public:
         float yaw = atan2(2.0f * (quat.w() * quat.z() + quat.x() * quat.y()),
                           1.0f - 2.0f * (quat.y() * quat.y() + quat.z() * quat.z()));
         
+        if (initalRoll) {
+            currentRoll = initalRoll - roll*100;
+        } else {
+            initalRoll = roll*100;
+            currentRoll = initalRoll;
+        }
+//        std::cout << " roll " << adjustedRoll << '\n';
+
         // Convert the floating point angles in radians to a scale from 0 to 20.
         roll_w = static_cast<int>((roll + (float)M_PI)/(M_PI * 2.0f) * 18);
         pitch_w = static_cast<int>((pitch + (float)M_PI/2.0f)/M_PI * 18);
         yaw_w = static_cast<int>((yaw + (float)M_PI)/(M_PI * 2.0f) * 18);
         
         if ([_myo.delegate respondsToSelector:@selector(myo:onOrientationDataWithRoll:pitch:yaw:)]) {
-            [_myo.delegate myo:_myo onOrientationDataWithRoll:roll_w pitch:pitch_w yaw:yaw_w];
+            [_myo.delegate myo:_myo onOrientationDataWithRoll:currentRoll pitch:pitch_w yaw:yaw_w];
         }
     }
     
     void onAccelerometerData(myo::Myo* myo, uint64_t timestamp, const myo::Vector3<float>& accel)
     {
-        MyoVector *vector = [[MyoVector alloc] initWithX:accel.x() y:accel.y() z:accel.z()];
+        MyoVector *vector = [[MyoVector alloc] initWithX:accel.x() y:accel.y() z:accel.z() orientation:usbOrientation];
         if ([_myo.delegate respondsToSelector:@selector(myo:onAccelerometerDataWithVector:)]) {
             [_myo.delegate myo:_myo onAccelerometerDataWithVector:vector];
         }
@@ -51,7 +59,7 @@ public:
     /// Called when a paired Myo has provided new gyroscope data in units of deg/s.
     void onGyroscopeData(myo::Myo* myo, uint64_t timestamp, const myo::Vector3<float>& gyro)
     {
-        MyoVector *vector = [[MyoVector alloc] initWithX:gyro.x() y:gyro.y() z:gyro.z()];
+        MyoVector *vector = [[MyoVector alloc] initWithX:gyro.x() y:gyro.y() z:gyro.z() orientation:usbOrientation];
         if ([_myo.delegate respondsToSelector:@selector(myo:onGyroscopeDataWithVector:)]) {
             [_myo.delegate myo:_myo onGyroscopeDataWithVector:vector];
         }
@@ -89,6 +97,7 @@ public:
     {
         onArm = true;
         whichArm = arm;
+        usbOrientation = xDirection;
         if ([_myo.delegate respondsToSelector:@selector(myoOnArmRecognized:)]) {
             [_myo.delegate myoOnArmRecognized:_myo];
         }
@@ -148,9 +157,11 @@ public:
     // These values are set by onArmRecognized() and onArmLost() above.
     bool onArm;
     myo::Arm whichArm;
-    
+    myo::XDirection usbOrientation;
     // These values are set by onOrientationData() and onPose() above.
     int roll_w, pitch_w, yaw_w;
+    int initalRoll;
+    int currentRoll;
     myo::Pose currentPose;
     Myo *_myo;
 };
@@ -163,63 +174,57 @@ public:
 
 #pragma mark - MYOVECTOR
 @implementation MyoVector
+
 -(id)init
 {
-    return [self initWithX:0 y:0 z:0];
+    return [self initWithX:0 y:0 z:0 orientation:YES];
 }
-- (instancetype)initWithX:(float)x y:(float)y z:(float)z
+
+- (instancetype)initWithX:(float)x y:(float)y z:(float)z orientation:(BOOL)usbTowardsWrist
 {
     self = [super init];
     if (self) {
-        _data[0] = x;
-        _data[1] = y;
-        _data[2] = z;
+        self.x = x;
+        self.y = y;
+        self.z = z;
+        self.usbTowardsWrist = usbTowardsWrist;
     }
     return self;
 }
--(float)x
-{
-    return _data[0];
-}
--(float)y
-{
-    return _data[1];
-}
--(float)z
-{
-    return _data[2];
-}
+
 -(float)magnitude
 {
     return std::sqrt(self.x * self.x + self.y * self.y + self.z * self.z);
 }
+
 -(float)productWithVector:(MyoVector*)rhs
 {
     return self.x * self.x + self.y * self.y + self.z * self.z;
 }
+
 -(MyoVector*)normalized
 {
     float norm = self.magnitude;
-    return [[MyoVector alloc] initWithX:(self.x / norm) y:(self.y / norm) z:(self.z / norm)];
+    return [[MyoVector alloc] initWithX:(self.x / norm) y:(self.y / norm) z:(self.z / norm) orientation:self.usbTowardsWrist];
 }
+
 -(MyoVector*)crossProductWithVector:(MyoVector*)rhs
 {
     float x = self.x * rhs.y - self.y * rhs.x;
     float y = self.y * rhs.z - self.z * rhs.y;
     float z = self.z * rhs.x - self.x * rhs.z;
-    return [[MyoVector alloc] initWithX:x y:y z:z];
+    return [[MyoVector alloc] initWithX:x y:y z:z orientation:rhs.usbTowardsWrist];
 }
+
 -(float)angleWithVector:(MyoVector *)rhs
 {
     return std::acos([self productWithVector:rhs] / (self.magnitude * rhs.magnitude));
 }
+
 @end
 
 
-
-
 #pragma mark - MYO
-
 
 @implementation Myo {
     myo::Hub hub;

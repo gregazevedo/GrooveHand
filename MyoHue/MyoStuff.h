@@ -12,11 +12,13 @@
 
 #pragma mark - MYO POSE
 typedef enum MyoPoseType {
-    MyoPoseTypeFist = 0,
-    MyoPoseTypeFingersSpread = 1,
-    MyoPoseTypeWaveIn = 2,
-    MyoPoseTypeWaveOut = 3,
-    MyoPoseTypeThumbToPinky = 4
+    MyoPoseTypeRest,
+    MyoPoseTypeFist,
+    MyoPoseTypeFingersSpread,
+    MyoPoseTypeWaveIn,
+    MyoPoseTypeWaveOut,
+    MyoPoseTypeReserved,
+    MyoPoseTypeThumbToPinky
 } MyoPoseType;
 
 @interface MyoPose : NSObject
@@ -27,19 +29,21 @@ typedef enum MyoPoseType {
 
 
 @interface MyoVector : NSObject
-{
-    float _data[3];
-}
-@property (nonatomic, readonly, getter=x)float x;
-@property (nonatomic, readonly, getter=y)float y;
-@property (nonatomic, readonly, getter=y)float z;
-@property (nonatomic, readonly, getter=magnitude)float magnitude;
+//{
+//    float _data[4];
+//}
+@property (nonatomic) float x;
+@property (nonatomic) float y;
+@property (nonatomic) float z;
+@property (nonatomic) BOOL usbTowardsWrist;
+@property (nonatomic, readonly) float magnitude;
 
 -(id)init;
--(id)initWithX:(float)x y:(float)y z:(float)z;
+-(id)initWithX:(float)x y:(float)y z:(float)z orientation:(BOOL)usbTowardsWrist;
 -(float)x;
 -(float)y;
 -(float)z;
+-(BOOL)usbTowardsWrist;
 -(float)magnitude;
 -(float)productWithVector:(MyoVector*)rhs;
 -(MyoVector*)normalized;
@@ -87,4 +91,5 @@ typedef enum MyoVibrationType {
 
 @property (nonatomic) int updateTime;
 @property (nonatomic, assign) id <MyoDelegate> delegate;
+
 @end
