@@ -29,14 +29,13 @@ typedef enum MyoPoseType {
 
 
 @interface MyoVector : NSObject
-//{
-//    float _data[4];
-//}
-@property (nonatomic) float x;
-@property (nonatomic) float y;
-@property (nonatomic) float z;
-@property (nonatomic) BOOL usbTowardsWrist;
-@property (nonatomic, readonly) float magnitude;
+{
+    float _data[3];
+}
+@property (nonatomic, readonly, getter = x) float x;
+@property (nonatomic, readonly, getter = y) float y;
+@property (nonatomic, readonly, getter = z) float z;
+@property (nonatomic, readonly, getter = magnitude) float magnitude;
 
 -(id)initWithX:(float)x y:(float)y z:(float)z orientation:(BOOL)usbTowardsWrist;
 -(float)productWithVector:(MyoVector*)rhs;

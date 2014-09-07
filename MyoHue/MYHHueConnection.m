@@ -71,7 +71,7 @@
 -(void)increaseBrightness
 {
     self.currentBrightness = [NSNumber numberWithInt:([self.currentBrightness intValue] + 3)];
-
+    
     if ([self.currentBrightness intValue] < 0) {
         self.currentBrightness = @0;
     } else if ([self.currentBrightness intValue] >= 255) {

@@ -84,7 +84,9 @@
 
 -(void)myo:(Myo *)myo onOrientationDataWithRoll:(int)roll pitch:(int)pitch yaw:(int)yaw
 {
-//    NSLog(@"orientation roll %i pitch %i yaw %i", roll, pitch, yaw);
+    //    NSLog(@"orientation roll %i pitch %i yaw %i", roll, pitch, yaw);
+    
+    roll = -roll*100;
     if (self.mode == MYHModeLights){
         if (self.lights.state == MYHStateAdjustingBrightness) {
             int fistedRollChange = roll-self.latestNoFistRoll;
@@ -93,7 +95,7 @@
         else {
             self.latestNoFistRoll = roll;
         }
-    }else{
+    }else if (self.mode == MYHModeMusic){
         if (self.player.state == MYMStateAdjustingVolume) {
             int fistedRollChange = roll-self.latestNoFistRoll;
             [self.player adjustVolumeWithRotation:fistedRollChange];
@@ -139,6 +141,8 @@
 {
     self.player.state = MYMStateDefault;
     switch (pose) {
+        case MyoPoseTypeRest:
+            break;
         case MyoPoseTypeFist:
             self.player.state = MYMStateAdjustingVolume;
             break;
@@ -152,6 +156,10 @@
             break;
         case MyoPoseTypeWaveOut:
             [self.player playLastSong];
+            break;
+        case MyoPoseTypeThumbToPinky:
+            break;
+        case MyoPoseTypeReserved:
             break;
     }
 }
@@ -206,7 +214,6 @@
     } else if (self.mode == MYHModeMusic) {
         [self updateMusicForPose:pose.poseType];
     }
-    //[myo vibrateWithType:MyoVibrationTypeShort];
 }
 
 -(void)myoOnConnect:(Myo *)myo
