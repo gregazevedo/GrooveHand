@@ -24,8 +24,6 @@
     if (self) {
         self.songIndex = 0;
         self.currentVolume = 0.5f;
-//        self.songList = [NSMutableArray new];
-//        [self createPlaylist];
     }
     return self;
 }

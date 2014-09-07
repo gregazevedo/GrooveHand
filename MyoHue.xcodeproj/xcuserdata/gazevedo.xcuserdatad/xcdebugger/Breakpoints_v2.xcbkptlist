@@ -16,16 +16,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "No"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "MyoHue/MainViewController.mm"
-            timestampString = "431765138.026885"
+            filePath = "MyoHue/MainViewController+MyoDelegate.m"
+            timestampString = "431773200.181412"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "62"
-            endingLineNumber = "62"
-            landmarkName = "-setMode:"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "-allowModeSwitch:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

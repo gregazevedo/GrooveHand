@@ -11,7 +11,7 @@
 
 @interface MYHAppDelegate()
 
-@property (nonatomic) IBOutlet MainViewController *mainVC;
+@property (nonatomic) MainViewController *mainVC;
 
 @end
 
@@ -19,7 +19,7 @@
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
-    self.mainVC = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
+    self.mainVC = [[MainViewController alloc] initWithNibName:nil bundle:nil];
     [self.window.contentView addSubview:self.mainVC.view];
     self.mainVC.view.frame = ((NSView*)self.window.contentView).bounds;
 }

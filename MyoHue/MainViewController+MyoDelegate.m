@@ -12,41 +12,71 @@
 
 @implementation MainViewController (MyoDelegate)
 
--(void)myoOnConnect:(Myo *)myo
-{
-    NSLog(@"Myo on connect");
-}
--(void)myoOnDisconnect:(Myo *)myo
-{
-    NSLog(@"Myo on disconnect");
-}
--(void)myoOnArmRecognized:(Myo *)myo
-{
-    NSLog(@"Myo on arm recognized");
-}
--(void)myoOnArmLost:(Myo *)myo
-{
-    NSLog(@"Myo on arm lost");
-}
--(void)myoOnPair:(Myo *)myo
-{
-    NSLog(@"Myo on pair");
-}
 -(void)myo:(Myo *)myo onAccelerometerDataWithVector:(MyoVector*)vector
 {
-    if (fabsf(vector.x) > 1.5) {
-        self.mode = MYHModeLights;
-        NSLog(@"accelerometer x %f y %f z %f mag %f", vector.x, vector.y, vector.z, vector.magnitude);
-        NSLog(@"TOGGLE TO LIGHT MODE");
-    } else if (fabsf(vector.y) > 1.5) {
-        self.mode = MYHModeMusic;
-        NSLog(@"accelerometer x %f y %f z %f mag %f", vector.x, vector.y, vector.z, vector.magnitude);
-        NSLog(@"TOGGLE TO MUSIC MODE");
-    }
+//    if (fabsf(vector.x) > 1.5 && self.canSwitchMode) {
+//        self.mode = MYHModeLights;
+//        NSLog(@"accelerometer x %f y %f z %f mag %f", vector.x, vector.y, vector.z, vector.magnitude);
+//        NSLog(@"TOGGLE TO LIGHT MODE");
+//        self.latestCommand = @"Toggled To Light Mode";
+//        self.canSwitchMode = NO;
+//        [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(allowModeSwitch:) userInfo:nil repeats:NO];
+//
+//    } else if (fabsf(vector.y) > 1.5 && self.canSwitchMode) {
+//        self.mode = MYHModeMusic;
+//        NSLog(@"accelerometer x %f y %f z %f mag %f", vector.x, vector.y, vector.z, vector.magnitude);
+//        self.latestCommand = @"Toggled To Music Mode";
+//        NSLog(@"TOGGLE TO MUSIC MODE");
+//        self.canSwitchMode = NO;
+//        [NSTimer scheduledTimerWithTimeInterval:1.0 target:self selector:@selector(allowModeSwitch:) userInfo:nil repeats:NO];
+//    }
 }
+
 -(void)myo:(Myo *)myo onGyroscopeDataWithVector:(MyoVector*)vector
 {
-//    NSLog(@"gyroscope x %f y %f z %f mag %f", vector.x, vector.y, vector.z, vector.magnitude);
+    
+    if (vector.y > self.highY) {
+        self.highY = vector.y;
+        self.lowY = vector.y;
+    }
+    if (vector.y < self.lowY) {
+        self.lowY = vector.y;
+    }
+    
+    if (self.highY - self.lowY > 300) {
+        NSLog(@"gyroscope x %f y %f z %f mag %f", vector.x, vector.y, vector.z, vector.magnitude);
+        NSLog(@"high %f low %f", self.highY, self.lowY);
+
+        if (self.mode == MYHModeLights) {
+            self.mode = MYHModeMusic;
+            NSLog(@"TOGGLE TO MUSIC MODE");
+
+        } else {
+            self.mode = MYHModeLights;
+            NSLog(@"TOGGLE TO LIGHT MODE");
+
+        }
+        self.highY = -999;
+        self.lowY = -999;
+    }
+    
+//    if (vector.y > 200 && self.canSwitchMode) {
+//        self.mode = MYHModeLights;
+//        NSLog(@"accelerometer x %f y %f z %f mag %f", vector.x, vector.y, vector.z, vector.magnitude);
+//        NSLog(@"TOGGLE TO LIGHT MODE");
+//        self.latestCommand = @"Toggled To Light Mode";
+//        self.canSwitchMode = NO;
+//        
+//    } else if (vector.y < -200 && self.canSwitchMode) {
+//        self.mode = MYHModeMusic;
+//        NSLog(@"accelerometer x %f y %f z %f mag %f", vector.x, vector.y, vector.z, vector.magnitude);
+//        self.latestCommand = @"Toggled To Music Mode";
+//        NSLog(@"TOGGLE TO MUSIC MODE");
+//        self.canSwitchMode = NO;
+//    }
+//
+    
+    
     int x = (int)vector.x;
     x = vector.usbTowardsWrist ? x : -x;
 //    NSLog(@"rotation vec x %f int x %i", vector.x, x);
@@ -82,7 +112,6 @@
 -(void)updateLightsForPose:(MyoPoseType)pose
 {
     self.lights.state = MYHStateDefault;
-    NSLog(@"Current Pose: %i", pose);
     switch (pose) {
         case MyoPoseTypeRest:
             break;
@@ -111,13 +140,12 @@
     self.player.state = MYMStateDefault;
     switch (pose) {
         case MyoPoseTypeFist:
-            NSLog(@"fist made");
             self.player.state = MYMStateAdjustingVolume;
             break;
         case MyoPoseTypeFingersSpread:
             [self.player toggleMusic];
             [self.lights togglePartyMode];
-            NSLog(@"togglemusic");
+            NSLog(@"toggle music");
             break;
         case MyoPoseTypeWaveIn:
             [self.player playNextSong];
@@ -128,9 +156,49 @@
     }
 }
 
+-(void)allowModeSwitch:(NSTimer *)timer
+{
+    NSLog(@"arg: %@", timer);
+    self.canSwitchMode = YES;
+}
+
 -(void)myo:(Myo *)myo onPose:(MyoPose *)pose
 {
-    self.canSwitchMode = YES;
+    switch (pose.poseType) {
+        case MyoPoseTypeFist:
+            NSLog(@"MyoPoseTypeFist");
+            break;
+        case MyoPoseTypeFingersSpread:
+            NSLog(@"MyoPoseTypeFingersSpread");
+            break;
+        case MyoPoseTypeWaveIn:
+            NSLog(@"MyoPoseTypeWaveIn");
+            break;
+        case MyoPoseTypeWaveOut:
+            NSLog(@"MyoPoseTypeWaveOut");
+            break;
+        case MyoPoseTypeRest:
+            NSLog(@"MyoPoseTypeRest");
+            break;
+        case MyoPoseTypeThumbToPinky:
+            NSLog(@"MyoPoseTypeThumbToPinky");
+            break;
+    }
+    
+    switch (self.mode) {
+        case MYHModeLights:
+            NSLog(@"MYHModeLights");
+            break;
+        case MYHModeMusic:
+            NSLog(@"MYHModeMusic");
+            break;
+    }
+    
+    if (pose.poseType == MyoPoseTypeRest) {
+        self.canSwitchMode = YES;
+    } else {
+        self.canSwitchMode = NO;
+    }
     
 //    self.state = MYHStateDefault;
     if (self.mode == MYHModeLights) {
@@ -139,6 +207,31 @@
         [self updateMusicForPose:pose.poseType];
     }
     //[myo vibrateWithType:MyoVibrationTypeShort];
+}
+
+-(void)myoOnConnect:(Myo *)myo
+{
+    NSLog(@"Myo on connect");
+}
+
+-(void)myoOnDisconnect:(Myo *)myo
+{
+    NSLog(@"Myo on disconnect");
+}
+
+-(void)myoOnArmRecognized:(Myo *)myo
+{
+    NSLog(@"Myo on arm recognized");
+}
+
+-(void)myoOnArmLost:(Myo *)myo
+{
+    NSLog(@"Myo on arm lost");
+}
+
+-(void)myoOnPair:(Myo *)myo
+{
+    NSLog(@"Myo on pair");
 }
 
 @end
