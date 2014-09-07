@@ -15,5 +15,6 @@
 @property (nonatomic) BOOL isPartyMode;
 @property (nonatomic) NSMutableArray *hueColors;
 @property (nonatomic) int index;
+@property (nonatomic) NSNumber *initialColor;
 
 @end

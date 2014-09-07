@@ -7,6 +7,7 @@
 //
 
 #import "MainViewController+MyoDelegate.h"
+#import "MainViewController+HueDelegate.h"
 
 @implementation MainViewController (MyoDelegate)
 
@@ -95,26 +96,5 @@
     
     //[myo vibrateWithType:MyoVibrationTypeShort];
 }
-
--(void)updateHueWithMessageBody:(NSString *)messageBody{
-    NSString *urlString = [NSString stringWithFormat:@"http://192.168.2.2/api/newdeveloper/lights/3/state/"];
-    NSURL *url = [NSURL URLWithString:urlString];
-    
-    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] init];
-    [request setURL:url];
-    
-    NSData* bodyData = [messageBody dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-    NSString* postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[bodyData length]];
-    NSString *method = @"PUT";
-    
-    [request setHTTPMethod:method];
-    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    [request setHTTPBody:bodyData];
-    
-    [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    NSLog(@"strobe to %i", self.lightOn);
-}
-
 
 @end
