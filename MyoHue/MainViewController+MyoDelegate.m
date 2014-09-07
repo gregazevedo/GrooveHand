@@ -77,8 +77,8 @@
 //
     
     
-    int x = (int)vector.x;
-    x = vector.usbTowardsWrist ? x : -x;
+//    int x = (int)vector.x;
+//    x = vector.usbTowardsWrist ? x : -x;
 //    NSLog(@"rotation vec x %f int x %i", vector.x, x);
 }
 

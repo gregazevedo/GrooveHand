@@ -25,8 +25,36 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "159"
             endingLineNumber = "159"
-            landmarkName = "-allowModeSwitch:"
+            landmarkName = "-updateMusicForPose:"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../../../var/folders/hg/8wgz9dmd2y998xlt5wdd35gc0000gp/T/XcodeMergeSession-fc21f1da2d25f6d5c72c77e22628f55f4503290e/MergeDocument-MainViewController+MyoDelegate.m"
+            timestampString = "431773640.107135"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "62"
+            endingLineNumber = "62">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../../../var/folders/hg/8wgz9dmd2y998xlt5wdd35gc0000gp/T/XcodeMergeSession-fc21f1da2d25f6d5c72c77e22628f55f4503290e/MergeDocument-MainViewController+MyoDelegate.m"
+            timestampString = "431773646.769478"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

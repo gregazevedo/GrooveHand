@@ -32,12 +32,12 @@ typedef enum MyoPoseType {
 {
     float _data[3];
 }
-@property (nonatomic, readonly, getter = x) float x;
+@property (nonatomic, readonly) float x;
 @property (nonatomic, readonly, getter = y) float y;
 @property (nonatomic, readonly, getter = z) float z;
 @property (nonatomic, readonly, getter = magnitude) float magnitude;
 
--(id)initWithX:(float)x y:(float)y z:(float)z orientation:(BOOL)usbTowardsWrist;
+-(id)initWithX:(float)x y:(float)y z:(float)z;
 -(float)productWithVector:(MyoVector*)rhs;
 -(MyoVector*)normalized;
 -(MyoVector*)crossProductWithVector:(MyoVector*)rhs;
