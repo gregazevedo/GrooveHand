@@ -13,6 +13,7 @@
 @property (nonatomic) NSArray *songList;
 @property (nonatomic) int songIndex;
 @property (nonatomic) BOOL isPlaying;
+@property (nonatomic) float currentVolume;
 
 @end
 @implementation MyoMusicPlayer
@@ -22,6 +23,7 @@
     self = [super init];
     if (self) {
         self.songIndex = 0;
+        self.currentVolume = 0.5f;
 //        self.songList = [NSMutableArray new];
 //        [self createPlaylist];
     }
@@ -31,7 +33,7 @@
 -(void)playSongWithName:(NSString *)song {
     NSURL *url = [NSURL fileURLWithPath:[[NSBundle mainBundle] pathForResource:song ofType:@"mp3"]];
     self.songPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:url error:nil];
-    [self.songPlayer setVolume:1.0f];
+    [self.songPlayer setVolume:_currentVolume];
     [self.songPlayer play];
     NSLog(@"playing music");
 }
@@ -90,6 +92,45 @@
                       @"LittleSecrets",@"Years",@"TimeToPretend"];
     }
     return _songList;
+}
+
+-(void)increaseVolume
+{
+    self.currentVolume += 0.01;
+    if (self.currentVolume < 0) {
+        self.currentVolume = 0;
+    } else if (self.currentVolume >= 1) {
+        self.currentVolume = 1.0f;
+    }
+    [self.songPlayer setVolume:_currentVolume];
+}
+
+-(void)decreaseVolume
+{
+    self.currentVolume -= 0.01;
+    if (self.currentVolume <= 0) {
+        self.currentVolume = 0;
+    } else if (self.currentVolume > 1) {
+        self.currentVolume = 1.0f;
+    }
+    [self.songPlayer setVolume:_currentVolume];
+}
+
+-(void)adjustVolumeWithRotation:(int)rotation
+{
+    BOOL shouldIncrease = rotation > 30;
+    BOOL shouldDecrease = rotation < -30;
+    
+    if (shouldIncrease) {
+        [self.volumeDecreaseTimer invalidate];
+        self.volumeIncreaseTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(increaseVolume) userInfo:nil repeats:NO];
+        [self.volumeIncreaseTimer fire];
+    } else if (shouldDecrease) {
+        [self.volumeIncreaseTimer invalidate];
+        self.volumeDecreaseTimer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(decreaseVolume) userInfo:nil repeats:NO];
+        [self.volumeDecreaseTimer fire];
+    }
+    
 }
 
 @end

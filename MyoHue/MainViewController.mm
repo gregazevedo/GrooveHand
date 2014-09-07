@@ -80,8 +80,9 @@
     }
     
     if([self.musicButton state] == 1) {
-        NSLog(@"Pressed music");
         [self.myMyo startUpdate];
+    }else{
+        [self.myMyo stopUpdate];
     }
 }
 
