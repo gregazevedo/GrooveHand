@@ -28,6 +28,7 @@
     if (self) {
         self.player = [MyoMusicPlayer new];
         self.lights = [MYHHueConnection new];
+        self.mode = MYHModeLights;
     }
     return self;
 }
@@ -47,6 +48,7 @@
 }
 
 - (IBAction)lightsButtonPushed:(id)sender {
+    self.mode = MYHModeLights;
     
     if([self.musicButton state] == 1){
         [self.musicButton setState:0];
@@ -58,7 +60,21 @@
     }
 }
 
+//-(void)setMode:(MYHMode)mode
+//{
+//    switch(mode) {
+//        case MYHModeLights:
+//            break;
+//        case MYHModeMusic:
+//            break;
+//    }
+//    _mode = mode;
+//
+//}
+
 - (IBAction)musicButtonPushed:(id)sender {
+    self.mode = MYHModeMusic;
+
     if([self.lightsButton state] == 1){
         [self.lightsButton setState:0];
         [self.timer invalidate];
@@ -66,6 +82,7 @@
     
     if([self.musicButton state] == 1) {
         NSLog(@"Pressed music");
+        [self.myMyo startUpdate];
     }
 }
 

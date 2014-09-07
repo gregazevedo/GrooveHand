@@ -14,6 +14,7 @@
 -(void)stopMusic;
 -(void)playMusic;
 -(void)pauseMusic;
+-(void)toggleMusic;
 -(void)playNextSong;
 -(void)playLastSong;
 

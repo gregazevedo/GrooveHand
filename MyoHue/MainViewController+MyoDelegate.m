@@ -8,6 +8,7 @@
 
 #import "MainViewController+MyoDelegate.h"
 #import "MYHHueConnection.h"
+#import "MyoMusicPlayer.h"
 
 @implementation MainViewController (MyoDelegate)
 
@@ -46,7 +47,7 @@
 
 -(void)myo:(Myo *)myo onOrientationDataWithRoll:(int)roll pitch:(int)pitch yaw:(int)yaw
 {
-    NSLog(@"orientation roll %i pitch %i yaw %i", roll, pitch, yaw);
+//    NSLog(@"orientation roll %i pitch %i yaw %i", roll, pitch, yaw);
 
 //    int fistedRollChange = self.latestNoFistRoll - roll;
 //    [self.lights adjustBrightnessWithRotation:fistedRollChange];
@@ -65,11 +66,9 @@
     NSLog(@"Myo on rssi");
 }
 
--(void)myo:(Myo *)myo onPose:(MyoPose *)pose
+-(void)updateLightsForPose:(MyoPoseType)pose
 {
-//    self.state = MYHStateDefault;
-    
-    switch (pose.poseType) {
+    switch (pose) {
         case MyoPoseTypeRest:
             
             break;
@@ -83,7 +82,7 @@
             [self.lights updateToPreviousHue];
             break;
         case MyoPoseTypeFist:
-//            self.state = MYHStateAdjustingBrightness;
+            //            self.state = MYHStateAdjustingBrightness;
             
             break;
         case MyoPoseTypeThumbToPinky:
@@ -92,8 +91,35 @@
         case MyoPoseTypeReserved:
             break;
     }
-    
-    
+}
+
+-(void)updateMusicForPose:(MyoPoseType)pose
+{
+    switch (pose) {
+        case MyoPoseTypeFist:
+            NSLog(@"fist made");
+            break;
+        case MyoPoseTypeFingersSpread:
+            [self.player toggleMusic];
+            NSLog(@"togglemusic");
+            break;
+        case MyoPoseTypeWaveIn:
+            [self.player playNextSong];
+            break;
+        case MyoPoseTypeWaveOut:
+            [self.player playLastSong];
+            break;
+    }
+}
+
+-(void)myo:(Myo *)myo onPose:(MyoPose *)pose
+{
+//    self.state = MYHStateDefault;
+    if (self.mode == MYHModeLights) {
+        [self updateLightsForPose:pose.poseType];
+    } else if (self.mode == MYHModeMusic) {
+        [self updateMusicForPose:pose.poseType];
+    }
     //[myo vibrateWithType:MyoVibrationTypeShort];
 }
 

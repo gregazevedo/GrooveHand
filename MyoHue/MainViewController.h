@@ -20,6 +20,7 @@ typedef NS_ENUM(NSUInteger, MYHMode) {
 
 @property (nonatomic) MyoMusicPlayer *player;
 @property (nonatomic) MYHHueConnection *lights;
+@property (nonatomic) MYHMode mode;
 
 //@property (nonatomic) int latestNoFistRoll;
 
