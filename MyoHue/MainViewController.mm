@@ -74,12 +74,13 @@
 
 - (IBAction)musicButtonPushed:(id)sender {
     self.mode = MYHModeMusic;
-
+    
     if([self.lightsButton state] == 1){
         [self.lightsButton setState:0];
     }
     
     if([self.musicButton state] == 1) {
+        NSLog(@"Pressed music");
         [self.myMyo startUpdate];
     }else{
         [self.myMyo stopUpdate];

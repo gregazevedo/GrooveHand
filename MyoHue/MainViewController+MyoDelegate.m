@@ -34,20 +34,21 @@
 }
 -(void)myo:(Myo *)myo onAccelerometerDataWithVector:(MyoVector*)vector
 {
-//    NSLog(@"accelerometer x %f y %f z %f mag %f", vector.x, vector.y, vector.z, vector.magnitude);
+    //    NSLog(@"accelerometer x %f y %f z %f mag %f", vector.x, vector.y, vector.z, vector.magnitude);
 }
 -(void)myo:(Myo *)myo onGyroscopeDataWithVector:(MyoVector*)vector
 {
-//    NSLog(@"gyroscope x %f y %f z %f mag %f", vector.x, vector.y, vector.z, vector.magnitude);
+    //    NSLog(@"gyroscope x %f y %f z %f mag %f", vector.x, vector.y, vector.z, vector.magnitude);
     int x = (int)vector.x;
-    x = vector.usbTowardsWrist ? x : -x;
     //    x -= x % 10;
-//    NSLog(@"rotation vec x %f int x %i", vector.x, x);
+    //    NSLog(@"rotation vec x %f int x %i", vector.x, x);
 }
 
 -(void)myo:(Myo *)myo onOrientationDataWithRoll:(int)roll pitch:(int)pitch yaw:(int)yaw
 {
-//    NSLog(@"orientation roll %i pitch %i yaw %i", roll, pitch, yaw);
+    //    NSLog(@"orientation roll %i pitch %i yaw %i", roll, pitch, yaw);
+    
+    roll = -roll*100;
     if (self.mode == MYHModeLights){
         if (self.lights.state == MYHStateAdjustingBrightness) {
             int fistedRollChange = roll-self.latestNoFistRoll;
@@ -56,7 +57,7 @@
         else {
             self.latestNoFistRoll = roll;
         }
-    }else{
+    }else if (self.mode == MYHModeMusic){
         if (self.player.state == MYMStateAdjustingVolume) {
             int fistedRollChange = roll-self.latestNoFistRoll;
             [self.player adjustVolumeWithRotation:fistedRollChange];
@@ -92,7 +93,6 @@
             self.lights.state = MYHStateAdjustingBrightness;
             break;
         case MyoPoseTypeThumbToPinky:
-            [self.lights togglePartyMode];
             break;
         case MyoPoseTypeReserved:
             break;
@@ -103,14 +103,14 @@
 {
     self.player.state = MYMStateDefault;
     switch (pose) {
+        case MyoPoseTypeRest:
+            break;
         case MyoPoseTypeFist:
-            NSLog(@"fist made");
             self.player.state = MYMStateAdjustingVolume;
             break;
         case MyoPoseTypeFingersSpread:
             [self.player toggleMusic];
             [self.lights togglePartyMode];
-            NSLog(@"togglemusic");
             break;
         case MyoPoseTypeWaveIn:
             [self.player playNextSong];
@@ -118,18 +118,20 @@
         case MyoPoseTypeWaveOut:
             [self.player playLastSong];
             break;
+        case MyoPoseTypeThumbToPinky:
+            break;
+        case MyoPoseTypeReserved:
+            break;
     }
 }
 
 -(void)myo:(Myo *)myo onPose:(MyoPose *)pose
 {
-//    self.state = MYHStateDefault;
     if (self.mode == MYHModeLights) {
         [self updateLightsForPose:pose.poseType];
     } else if (self.mode == MYHModeMusic) {
         [self updateMusicForPose:pose.poseType];
     }
-    //[myo vibrateWithType:MyoVibrationTypeShort];
 }
 
 @end

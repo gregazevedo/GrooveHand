@@ -71,7 +71,7 @@
 -(void)increaseBrightness
 {
     self.currentBrightness = [NSNumber numberWithInt:([self.currentBrightness intValue] + 3)];
-
+    
     if ([self.currentBrightness intValue] < 0) {
         self.currentBrightness = @0;
     } else if ([self.currentBrightness intValue] >= 255) {
@@ -130,7 +130,8 @@
         
         NSDictionary *lightDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         // Add to internal state
-        NSLog(@"LIGHT INFO: %@", lightDict);
+        NSLog(@"GOT DATA: %@", lightDict);
+        
         NSNumber *dict = [[lightDict objectForKey:@"state"] objectForKey:@"on"];
         self.initialColor = [[lightDict objectForKey:@"state"] objectForKey:@"hue"];
         self.currentBrightness = [[lightDict objectForKey:@"state"] objectForKey:@"bri"];
