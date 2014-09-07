@@ -20,7 +20,6 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
 {
     self.mainVC = [[MainViewController alloc] initWithNibName:@"MainViewController" bundle:nil];
-    
     [self.window.contentView addSubview:self.mainVC.view];
     self.mainVC.view.frame = ((NSView*)self.window.contentView).bounds;
 }

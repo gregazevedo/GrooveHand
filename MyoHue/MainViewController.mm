@@ -28,7 +28,6 @@
     if (self) {
         self.player = [MyoMusicPlayer new];
         self.lights = [MYHHueConnection new];
-        self.mode = MYHModeLights;
     }
     return self;
 }
@@ -45,46 +44,39 @@
     }
     self.myMyo.delegate = self;
     self.myMyo.updateTime = 1000;
-}
-
-- (IBAction)lightsButtonPushed:(id)sender {
     self.mode = MYHModeLights;
-    
-    if([self.musicButton state] == 1){
-        [self.musicButton setState:0];
-    }
-    if([self.lightsButton state] == 1){
-        [self.myMyo startUpdate];
-    }else{
-        [self.myMyo stopUpdate];
-    }
 }
 
-//-(void)setMode:(MYHMode)mode
-//{
-//    switch(mode) {
-//        case MYHModeLights:
-//            break;
-//        case MYHModeMusic:
-//            break;
-//    }
-//    _mode = mode;
-//
-//}
+- (IBAction)lightsButtonPushed:(id)sender
+{
+    self.mode = MYHModeLights;
+}
 
-- (IBAction)musicButtonPushed:(id)sender {
+- (IBAction)musicButtonPushed:(id)sender
+{
     self.mode = MYHModeMusic;
-
-    if([self.lightsButton state] == 1){
-        [self.lightsButton setState:0];
-    }
-    
-    if([self.musicButton state] == 1) {
-        NSLog(@"Pressed music");
-        [self.myMyo startUpdate];
-    }
 }
 
+-(void)setMode:(MYHMode)mode
+{
+    switch (mode) {
+        case MYHModeLights:
+//            [self.lightsButton setState:NSOnState];
+            [self.lightsButton highlight:YES];
+//            [self.musicButton setState:NSOffState];
+            [self.musicButton highlight:NO];
+            break;
+        case MYHModeMusic:
+//            [self.musicButton setState:NSOnState];
+            [self.musicButton highlight:YES];
 
+//            [self.lightsButton setState:NSOffState];
+            [self.lightsButton highlight:NO];
+            break;
+        default:
+            break;
+    }
+    [self.myMyo startUpdate];
+}
 
 @end

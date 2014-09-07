@@ -38,13 +38,7 @@ typedef enum MyoPoseType {
 @property (nonatomic) BOOL usbTowardsWrist;
 @property (nonatomic, readonly) float magnitude;
 
--(id)init;
 -(id)initWithX:(float)x y:(float)y z:(float)z orientation:(BOOL)usbTowardsWrist;
--(float)x;
--(float)y;
--(float)z;
--(BOOL)usbTowardsWrist;
--(float)magnitude;
 -(float)productWithVector:(MyoVector*)rhs;
 -(MyoVector*)normalized;
 -(MyoVector*)crossProductWithVector:(MyoVector*)rhs;

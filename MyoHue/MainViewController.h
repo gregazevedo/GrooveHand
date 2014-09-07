@@ -12,6 +12,7 @@
 @class MyoMusicPlayer, MYHHueConnection;
 
 typedef NS_ENUM(NSUInteger, MYHMode) {
+    MYHModeNone,
     MYHModeLights,
     MYHModeMusic
 };
@@ -22,5 +23,6 @@ typedef NS_ENUM(NSUInteger, MYHMode) {
 @property (nonatomic) MYHHueConnection *lights;
 @property (nonatomic) MYHMode mode;
 @property (nonatomic) int latestNoFistRoll;
+@property BOOL canSwitchMode;
 
 @end

@@ -34,14 +34,21 @@
 }
 -(void)myo:(Myo *)myo onAccelerometerDataWithVector:(MyoVector*)vector
 {
-//    NSLog(@"accelerometer x %f y %f z %f mag %f", vector.x, vector.y, vector.z, vector.magnitude);
+    if (fabsf(vector.x) > 1.5) {
+        self.mode = MYHModeLights;
+        NSLog(@"accelerometer x %f y %f z %f mag %f", vector.x, vector.y, vector.z, vector.magnitude);
+        NSLog(@"TOGGLE TO LIGHT MODE");
+    } else if (fabsf(vector.y) > 1.5) {
+        self.mode = MYHModeMusic;
+        NSLog(@"accelerometer x %f y %f z %f mag %f", vector.x, vector.y, vector.z, vector.magnitude);
+        NSLog(@"TOGGLE TO MUSIC MODE");
+    }
 }
 -(void)myo:(Myo *)myo onGyroscopeDataWithVector:(MyoVector*)vector
 {
 //    NSLog(@"gyroscope x %f y %f z %f mag %f", vector.x, vector.y, vector.z, vector.magnitude);
     int x = (int)vector.x;
     x = vector.usbTowardsWrist ? x : -x;
-    //    x -= x % 10;
 //    NSLog(@"rotation vec x %f int x %i", vector.x, x);
 }
 
@@ -83,7 +90,7 @@
             self.lights.state = MYHStateAdjustingBrightness;
             break;
         case MyoPoseTypeThumbToPinky:
-            [self.lights togglePartyMode];
+//            [self.lights togglePartyMode];
             break;
         case MyoPoseTypeReserved:
             break;
@@ -111,6 +118,8 @@
 
 -(void)myo:(Myo *)myo onPose:(MyoPose *)pose
 {
+    self.canSwitchMode = YES;
+    
 //    self.state = MYHStateDefault;
     if (self.mode == MYHModeLights) {
         [self updateLightsForPose:pose.poseType];

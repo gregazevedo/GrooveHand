@@ -118,7 +118,8 @@
     }
 }
 
--(void)retrieveInitialHueInfo {
+-(void)retrieveInitialHueInfo
+{
     NSString *urlString = [NSString stringWithFormat:@"http://192.168.2.2/api/newdeveloper/lights/1"];
     NSURL *url = [NSURL URLWithString:urlString];
     
@@ -127,14 +128,17 @@
     NSString *method = @"GET";
     [request setHTTPMethod:method];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        
-        NSDictionary *lightDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        // Add to internal state
-        NSLog(@"LIGHT INFO: %@", lightDict);
-        NSNumber *dict = [[lightDict objectForKey:@"state"] objectForKey:@"on"];
-        self.initialColor = [[lightDict objectForKey:@"state"] objectForKey:@"hue"];
-        self.currentBrightness = [[lightDict objectForKey:@"state"] objectForKey:@"bri"];
-        self.lightOn = [dict isEqualToNumber:@1] ? YES : NO;
+        if (data) {
+            NSDictionary *lightDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSLog(@"LIGHT INFO: %@", lightDict);
+            NSNumber *dict = [[lightDict objectForKey:@"state"] objectForKey:@"on"];
+            self.initialColor = [[lightDict objectForKey:@"state"] objectForKey:@"hue"];
+            self.currentBrightness = [[lightDict objectForKey:@"state"] objectForKey:@"bri"];
+            self.lightOn = [dict isEqualToNumber:@1] ? YES : NO;
+        } else {
+            self.initialColor = @0;
+            self.currentBrightness = @0;
+        }
     }];
 }
 
@@ -154,7 +158,22 @@
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:bodyData];
     
-    [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+        if (data) {
+            NSDictionary *lightDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSLog(@"LIGHT INFO: %@", lightDict);
+            NSNumber *dict = [[lightDict objectForKey:@"state"] objectForKey:@"on"];
+            self.initialColor = [[lightDict objectForKey:@"state"] objectForKey:@"hue"];
+            self.currentBrightness = [[lightDict objectForKey:@"state"] objectForKey:@"bri"];
+            self.lightOn = [dict isEqualToNumber:@1] ? YES : NO;
+        } else {
+            self.initialColor = @0;
+            self.currentBrightness = @0;
+        }
+    }];
+
+    
+//    [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     //    NSLog(@"strobe to %i", self.lightOn);
 }
 
