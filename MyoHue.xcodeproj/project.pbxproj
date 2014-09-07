@@ -25,12 +25,23 @@
 		89242DC619BBD64000D89E42 /* myo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89242DC519BBD64000D89E42 /* myo.framework */; };
 		89242DC719BBD66000D89E42 /* myo.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 89242DC519BBD64000D89E42 /* myo.framework */; };
 		89242DCA19BBDA8100D89E42 /* MainViewController+HueDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89242DC919BBDA8100D89E42 /* MainViewController+HueDelegate.m */; };
-		BF777B2519BBF32300489DD6 /* Wonder.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BF777B2419BBF32300489DD6 /* Wonder.mp3 */; };
 		BF777B2719BBF47100489DD6 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF777B2619BBF47100489DD6 /* AVFoundation.framework */; };
-		BF777B2B19BBF83800489DD6 /* ICouldBeTheOne.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BF777B2A19BBF83800489DD6 /* ICouldBeTheOne.mp3 */; };
 		BF777B2D19BBF8B900489DD6 /* TimeToPretend.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BF777B2C19BBF8B900489DD6 /* TimeToPretend.mp3 */; };
 		BF777B2F19BBF92600489DD6 /* CrookedTeeth.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BF777B2E19BBF92600489DD6 /* CrookedTeeth.mp3 */; };
 		BF777B3219BBFCB600489DD6 /* MyoMusicPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = BF777B3119BBFCB600489DD6 /* MyoMusicPlayer.m */; };
+		BF777B3419BC036F00489DD6 /* Years.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BF777B3319BC036F00489DD6 /* Years.mp3 */; };
+		BF777B3619BC03F200489DD6 /* SweetNothing.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BF777B3519BC03F200489DD6 /* SweetNothing.mp3 */; };
+		BF777B3819BC04B700489DD6 /* ShakeItOut.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BF777B3719BC04B700489DD6 /* ShakeItOut.mp3 */; };
+		BF777B3A19BC04D700489DD6 /* Houdini.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BF777B3919BC04D700489DD6 /* Houdini.mp3 */; };
+		BF777B3C19BC055800489DD6 /* Daylight.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BF777B3B19BC055800489DD6 /* Daylight.mp3 */; };
+		BF777B3E19BC05A500489DD6 /* LittleSecrets.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BF777B3D19BC05A500489DD6 /* LittleSecrets.mp3 */; };
+		BF777B4019BC067300489DD6 /* YoungBlood.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BF777B3F19BC067300489DD6 /* YoungBlood.mp3 */; };
+		BF777B4219BC069F00489DD6 /* SweetDisposition.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BF777B4119BC069F00489DD6 /* SweetDisposition.mp3 */; };
+		BF777B4419BC06B200489DD6 /* OneHeadlight.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BF777B4319BC06B200489DD6 /* OneHeadlight.mp3 */; };
+		BF777B4619BC06C800489DD6 /* NeverLetYouGo.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BF777B4519BC06C800489DD6 /* NeverLetYouGo.mp3 */; };
+		BF777B4819BC070200489DD6 /* DropsofJupiter.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BF777B4719BC070200489DD6 /* DropsofJupiter.mp3 */; };
+		BF777B4A19BC073300489DD6 /* APunk.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BF777B4919BC073300489DD6 /* APunk.mp3 */; };
+		BF777B4C19BC076900489DD6 /* RedHands.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BF777B4B19BC076900489DD6 /* RedHands.mp3 */; };
 		FAA184F119BBA41F005ABEE2 /* MyoStuff.mm in Sources */ = {isa = PBXBuildFile; fileRef = FAA184ED19BB9FF7005ABEE2 /* MyoStuff.mm */; };
 /* End PBXBuildFile section */
 
@@ -86,13 +97,24 @@
 		89242DC519BBD64000D89E42 /* myo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = myo.framework; path = MyoHue/myo.framework; sourceTree = "<group>"; };
 		89242DC819BBDA8100D89E42 /* MainViewController+HueDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MainViewController+HueDelegate.h"; sourceTree = "<group>"; };
 		89242DC919BBDA8100D89E42 /* MainViewController+HueDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MainViewController+HueDelegate.m"; sourceTree = "<group>"; };
-		BF777B2419BBF32300489DD6 /* Wonder.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Wonder.mp3; sourceTree = "<group>"; };
 		BF777B2619BBF47100489DD6 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		BF777B2A19BBF83800489DD6 /* ICouldBeTheOne.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ICouldBeTheOne.mp3; sourceTree = "<group>"; };
 		BF777B2C19BBF8B900489DD6 /* TimeToPretend.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = TimeToPretend.mp3; sourceTree = "<group>"; };
 		BF777B2E19BBF92600489DD6 /* CrookedTeeth.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CrookedTeeth.mp3; sourceTree = "<group>"; };
 		BF777B3019BBFCB600489DD6 /* MyoMusicPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyoMusicPlayer.h; sourceTree = "<group>"; };
 		BF777B3119BBFCB600489DD6 /* MyoMusicPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyoMusicPlayer.m; sourceTree = "<group>"; };
+		BF777B3319BC036F00489DD6 /* Years.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Years.mp3; sourceTree = "<group>"; };
+		BF777B3519BC03F200489DD6 /* SweetNothing.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = SweetNothing.mp3; sourceTree = "<group>"; };
+		BF777B3719BC04B700489DD6 /* ShakeItOut.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = ShakeItOut.mp3; sourceTree = "<group>"; };
+		BF777B3919BC04D700489DD6 /* Houdini.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Houdini.mp3; sourceTree = "<group>"; };
+		BF777B3B19BC055800489DD6 /* Daylight.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = Daylight.mp3; sourceTree = "<group>"; };
+		BF777B3D19BC05A500489DD6 /* LittleSecrets.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = LittleSecrets.mp3; sourceTree = "<group>"; };
+		BF777B3F19BC067300489DD6 /* YoungBlood.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = YoungBlood.mp3; sourceTree = "<group>"; };
+		BF777B4119BC069F00489DD6 /* SweetDisposition.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = SweetDisposition.mp3; sourceTree = "<group>"; };
+		BF777B4319BC06B200489DD6 /* OneHeadlight.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = OneHeadlight.mp3; sourceTree = "<group>"; };
+		BF777B4519BC06C800489DD6 /* NeverLetYouGo.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = NeverLetYouGo.mp3; sourceTree = "<group>"; };
+		BF777B4719BC070200489DD6 /* DropsofJupiter.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = DropsofJupiter.mp3; sourceTree = "<group>"; };
+		BF777B4919BC073300489DD6 /* APunk.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = APunk.mp3; sourceTree = "<group>"; };
+		BF777B4B19BC076900489DD6 /* RedHands.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = RedHands.mp3; sourceTree = "<group>"; };
 		FAA184EC19BB9FF7005ABEE2 /* MyoStuff.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyoStuff.h; sourceTree = "<group>"; };
 		FAA184ED19BB9FF7005ABEE2 /* MyoStuff.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MyoStuff.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -178,10 +200,7 @@
 				FAA184ED19BB9FF7005ABEE2 /* MyoStuff.mm */,
 				89242DAD19BB971500D89E42 /* MainViewController.xib */,
 				89242D8C19BB93B100D89E42 /* MainMenu.xib */,
-				BF777B2E19BBF92600489DD6 /* CrookedTeeth.mp3 */,
-				BF777B2A19BBF83800489DD6 /* ICouldBeTheOne.mp3 */,
-				BF777B2C19BBF8B900489DD6 /* TimeToPretend.mp3 */,
-				BF777B2419BBF32300489DD6 /* Wonder.mp3 */,
+				BF777B4D19BC079B00489DD6 /* Song List */,
 				89242D8F19BB93B100D89E42 /* Images.xcassets */,
 				89242D7E19BB93B100D89E42 /* Supporting Files */,
 			);
@@ -217,6 +236,28 @@
 				89242D9E19BB93B100D89E42 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		BF777B4D19BC079B00489DD6 /* Song List */ = {
+			isa = PBXGroup;
+			children = (
+				BF777B3519BC03F200489DD6 /* SweetNothing.mp3 */,
+				BF777B3F19BC067300489DD6 /* YoungBlood.mp3 */,
+				BF777B4519BC06C800489DD6 /* NeverLetYouGo.mp3 */,
+				BF777B3719BC04B700489DD6 /* ShakeItOut.mp3 */,
+				BF777B4919BC073300489DD6 /* APunk.mp3 */,
+				BF777B3B19BC055800489DD6 /* Daylight.mp3 */,
+				BF777B4319BC06B200489DD6 /* OneHeadlight.mp3 */,
+				BF777B4B19BC076900489DD6 /* RedHands.mp3 */,
+				BF777B4719BC070200489DD6 /* DropsofJupiter.mp3 */,
+				BF777B2E19BBF92600489DD6 /* CrookedTeeth.mp3 */,
+				BF777B4119BC069F00489DD6 /* SweetDisposition.mp3 */,
+				BF777B3919BC04D700489DD6 /* Houdini.mp3 */,
+				BF777B3D19BC05A500489DD6 /* LittleSecrets.mp3 */,
+				BF777B3319BC036F00489DD6 /* Years.mp3 */,
+				BF777B2C19BBF8B900489DD6 /* TimeToPretend.mp3 */,
+			);
+			name = "Song List";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -297,16 +338,27 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BF777B3819BC04B700489DD6 /* ShakeItOut.mp3 in Resources */,
+				BF777B3619BC03F200489DD6 /* SweetNothing.mp3 in Resources */,
 				89242DB119BB972800D89E42 /* rainbow-background.jpg in Resources */,
 				BF777B2D19BBF8B900489DD6 /* TimeToPretend.mp3 in Resources */,
+				BF777B3E19BC05A500489DD6 /* LittleSecrets.mp3 in Resources */,
+				BF777B3419BC036F00489DD6 /* Years.mp3 in Resources */,
+				BF777B4819BC070200489DD6 /* DropsofJupiter.mp3 in Resources */,
 				89242D8219BB93B100D89E42 /* InfoPlist.strings in Resources */,
 				89242D9019BB93B100D89E42 /* Images.xcassets in Resources */,
-				BF777B2519BBF32300489DD6 /* Wonder.mp3 in Resources */,
+				BF777B4619BC06C800489DD6 /* NeverLetYouGo.mp3 in Resources */,
+				BF777B4A19BC073300489DD6 /* APunk.mp3 in Resources */,
 				89242DAF19BB971500D89E42 /* MainViewController.xib in Resources */,
+				BF777B4C19BC076900489DD6 /* RedHands.mp3 in Resources */,
 				89242D8819BB93B100D89E42 /* Credits.rtf in Resources */,
-				BF777B2B19BBF83800489DD6 /* ICouldBeTheOne.mp3 in Resources */,
+				BF777B3A19BC04D700489DD6 /* Houdini.mp3 in Resources */,
+				BF777B4019BC067300489DD6 /* YoungBlood.mp3 in Resources */,
+				BF777B4419BC06B200489DD6 /* OneHeadlight.mp3 in Resources */,
+				BF777B4219BC069F00489DD6 /* SweetDisposition.mp3 in Resources */,
 				89242D8E19BB93B100D89E42 /* MainMenu.xib in Resources */,
 				BF777B2F19BBF92600489DD6 /* CrookedTeeth.mp3 in Resources */,
+				BF777B3C19BC055800489DD6 /* Daylight.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

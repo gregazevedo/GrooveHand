@@ -49,7 +49,7 @@
 
 -(void)playNextSong {
     self.songIndex++;
-    if(self.songIndex == 4) {
+    if(self.songIndex == 15) {
         self.songIndex = 0;
     }
     [self playSongWithName:[self.songList objectAtIndex:self.songIndex]];
@@ -57,7 +57,7 @@
 
 -(void)playLastSong {
     if(self.songIndex == 0) {
-        self.songIndex = 3;
+        self.songIndex = 14;
     } else {
         self.songIndex--;
     }
@@ -65,10 +65,21 @@
 }
 
 -(void)createPlaylist {
-    [self.songList addObject:@"Wonder"];
-    [self.songList addObject:@"ICouldBeTheOne"];
-    [self.songList addObject:@"TimeToPretend"];
+    [self.songList addObject:@"YoungBlood"];
+    [self.songList addObject:@"SweetNothing"];
+    [self.songList addObject:@"NeverLetYouGo"];
+    [self.songList addObject:@"ShakeItOut"];
+    [self.songList addObject:@"APunk"];
+    [self.songList addObject:@"Daylight"];
+    [self.songList addObject:@"OneHeadlight"];
+    [self.songList addObject:@"RedHands"];
+    [self.songList addObject:@"DropsofJupiter"];
     [self.songList addObject:@"CrookedTeeth"];
+    [self.songList addObject:@"SweetDisposition"];
+    [self.songList addObject:@"Houdini"];
+    [self.songList addObject:@"LittleSecrets"];
+    [self.songList addObject:@"Years"];
+    [self.songList addObject:@"TimeToPretend"];
 }
 
 @end
