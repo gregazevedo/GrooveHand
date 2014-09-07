@@ -1,14 +1,24 @@
 //
-//  MainViewController+HueDelegate.m
+//  MYHHueConnection.m
 //  MyoHue
 //
 //  Created by Greg Azevedo on 9/6/14.
 //  Copyright (c) 2014 Gregory Azevedo. All rights reserved.
 //
 
-#import "MainViewController+HueDelegate.h"
+#import "MYHHueConnection.h"
 
-@implementation MainViewController (HueDelegate)
+@implementation MYHHueConnection
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.index = 0;
+        self.isPartyMode = false;
+    }
+    return self;
+}
 
 -(void)toggleLightOn
 {
@@ -31,7 +41,7 @@
         self.isPartyMode = false;
     } else {
         NSString *messageBody = [NSString stringWithFormat: @"{\"effect\":\"colorloop\"}"];
-//        [self updateHueWithMessageBody:messageBody];
+        [self updateHueWithMessageBody:messageBody];
         self.isPartyMode = true;
     }
 }
@@ -117,12 +127,17 @@
     [request setHTTPMethod:method];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
         
-        NSDictionary *lightDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        // Add to internal state
-        NSNumber *dict = [[lightDict objectForKey:@"state"] objectForKey:@"on"];
-        self.initialColor = [[lightDict objectForKey:@"state"] objectForKey:@"hue"];
-        self.currentBrightness = [[lightDict objectForKey:@"state"] objectForKey:@"bri"];
-        self.lightOn = [dict isEqualToNumber:@1] ? YES : NO;
+        if (data) {
+            NSDictionary *lightDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+            NSNumber *dict = [[lightDict objectForKey:@"state"] objectForKey:@"on"];
+            self.initialColor = [[lightDict objectForKey:@"state"] objectForKey:@"hue"];
+            self.currentBrightness = [[lightDict objectForKey:@"state"] objectForKey:@"bri"];
+            self.lightOn = [dict isEqualToNumber:@1] ? YES : NO;
+        } else {
+            NSLog(@"error no response for inital light state");
+            self.initialColor = @0;
+            self.currentBrightness = @0;
+        }
     }];
 }
 
@@ -143,7 +158,7 @@
     [request setHTTPBody:bodyData];
     
     [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-//    NSLog(@"strobe to %i", self.lightOn);
+    //    NSLog(@"strobe to %i", self.lightOn);
 }
 
 @end

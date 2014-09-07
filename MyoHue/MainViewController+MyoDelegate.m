@@ -7,7 +7,7 @@
 //
 
 #import "MainViewController+MyoDelegate.h"
-#import "MainViewController+HueDelegate.h"
+#import "MYHHueConnection.h"
 
 @implementation MainViewController (MyoDelegate)
 
@@ -42,23 +42,22 @@
     x = vector.usbTowardsWrist ? x : -x;
     //    x -= x % 10;
 //    NSLog(@"rotation vec x %f int x %i", vector.x, x);
-
-
 }
 
 -(void)myo:(Myo *)myo onOrientationDataWithRoll:(int)roll pitch:(int)pitch yaw:(int)yaw
 {
-//    NSLog(@"orientation roll %i pitch %i yaw %i", roll, pitch, yaw);
+    NSLog(@"orientation roll %i pitch %i yaw %i", roll, pitch, yaw);
 
-    if (self.state == MYHStateAdjustingBrightness) {
-        int fistedRollChange = self.latestNoFistRoll - roll;
-        [self adjustBrightnessWithRotation:fistedRollChange];
-        NSLog(@"adjusting brightness to %i", fistedRollChange);
-    }
-    else {
-        self.latestNoFistRoll = roll;
-//        self.currentBrightness = [NSNumber numberWithInt:roll];
-    }
+//    int fistedRollChange = self.latestNoFistRoll - roll;
+//    [self.lights adjustBrightnessWithRotation:fistedRollChange];
+
+//    if (self.state == MYHStateAdjustingBrightness) {
+//        NSLog(@"adjusting brightness to %i", fistedRollChange);
+//    }
+//    else {
+//        self.latestNoFistRoll = roll;
+////        self.currentBrightness = [NSNumber numberWithInt:roll];
+//    }
 }
 
 -(void)myo:(Myo *)myo onRssi:(int8_t)rssi
@@ -68,27 +67,29 @@
 
 -(void)myo:(Myo *)myo onPose:(MyoPose *)pose
 {
-    self.state = MYHStateDefault;
+//    self.state = MYHStateDefault;
     
     switch (pose.poseType) {
         case MyoPoseTypeRest:
             
             break;
         case MyoPoseTypeFingersSpread:
-            [self toggleLightOn];
+            [self.lights toggleLightOn];
             break;
         case MyoPoseTypeWaveOut:
-            [self updateToNextHue];
+            [self.lights updateToNextHue];
             break;
         case MyoPoseTypeWaveIn:
-            [self updateToPreviousHue];
+            [self.lights updateToPreviousHue];
             break;
         case MyoPoseTypeFist:
-            self.state = MYHStateAdjustingBrightness;
+//            self.state = MYHStateAdjustingBrightness;
             
             break;
         case MyoPoseTypeThumbToPinky:
-            [self togglePartyMode];
+            [self.lights togglePartyMode];
+            break;
+        case MyoPoseTypeReserved:
             break;
     }
     
