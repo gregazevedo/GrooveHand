@@ -55,13 +55,22 @@
 -(void)myo:(Myo *)myo onOrientationDataWithRoll:(int)roll pitch:(int)pitch yaw:(int)yaw
 {
 //    NSLog(@"orientation roll %i pitch %i yaw %i", roll, pitch, yaw);
-
-    if (self.lights.state == MYHStateAdjustingBrightness) {
-        int fistedRollChange = roll-self.latestNoFistRoll;
-        [self.lights adjustBrightnessWithRotation:fistedRollChange];
-    }
-    else {
-        self.latestNoFistRoll = roll;
+    if (self.mode == MYHModeLights){
+        if (self.lights.state == MYHStateAdjustingBrightness) {
+            int fistedRollChange = roll-self.latestNoFistRoll;
+            [self.lights adjustBrightnessWithRotation:fistedRollChange];
+        }
+        else {
+            self.latestNoFistRoll = roll;
+        }
+    }else{
+        if (self.player.state == MYMStateAdjustingVolume) {
+            int fistedRollChange = roll-self.latestNoFistRoll;
+            [self.player adjustVolumeWithRotation:fistedRollChange];
+        }
+        else {
+            self.latestNoFistRoll = roll;
+        }
     }
 }
 
@@ -99,12 +108,15 @@
 
 -(void)updateMusicForPose:(MyoPoseType)pose
 {
+    self.player.state = MYMStateDefault;
     switch (pose) {
         case MyoPoseTypeFist:
             NSLog(@"fist made");
+            self.player.state = MYMStateAdjustingVolume;
             break;
         case MyoPoseTypeFingersSpread:
             [self.player toggleMusic];
+            [self.lights togglePartyMode];
             NSLog(@"togglemusic");
             break;
         case MyoPoseTypeWaveIn:

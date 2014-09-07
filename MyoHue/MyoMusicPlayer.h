@@ -9,7 +9,16 @@
 #import <Foundation/Foundation.h>
 #import <AVFoundation/AVFoundation.h>
 
+typedef NS_ENUM(NSUInteger, MYMState) {
+    MYMStateDefault,
+    MYMStateAdjustingVolume
+};
+
 @interface MyoMusicPlayer : NSObject
+
+@property (nonatomic) MYMState state;
+@property (nonatomic) NSTimer *volumeIncreaseTimer;
+@property (nonatomic) NSTimer *volumeDecreaseTimer;
 
 -(void)stopMusic;
 -(void)playMusic;
@@ -17,6 +26,8 @@
 -(void)toggleMusic;
 -(void)playNextSong;
 -(void)playLastSong;
+-(void)adjustVolumeWithRotation:(int)rotation;
+
 
 
 
