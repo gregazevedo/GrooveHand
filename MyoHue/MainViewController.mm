@@ -8,8 +8,7 @@
 
 #import "MainViewController.h"
 #import "MainViewController+HueDelegate.h"
-#include <cmath>
-#include <iostream>
+#import "MyoMusicPlayer.h"
 
 @interface MainViewController ()
 
@@ -17,6 +16,7 @@
 @property (weak) IBOutlet NSButton *musicButton;
 @property (nonatomic) NSTimer *timer;
 @property (nonatomic) Myo *myMyo;
+@property (nonatomic) MyoMusicPlayer *player;
 
 @end
 
@@ -28,6 +28,7 @@
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         self.index = 0;
+        self.player = [MyoMusicPlayer new];
         self.isPartyMode = false;
     }
     return self;
@@ -38,7 +39,6 @@
     [super awakeFromNib];
     [self retrieveInitialHueInfo];
     [self createColors];
-    
     self.myMyo = [[Myo alloc] initWithApplicationIdentifier:@"com.example.myoobjc"];
     BOOL found = false;
     while (!found) {
@@ -66,8 +66,11 @@
         [self.timer invalidate];
     }
     
-    if([self.musicButton state] == 1)
+    if([self.musicButton state] == 1) {
         NSLog(@"Pressed music");
+    }
 }
+
+
 
 @end
