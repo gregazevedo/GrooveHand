@@ -12,6 +12,7 @@
 @interface MainViewController : NSViewController <MyoDelegate>
 
 @property (nonatomic) BOOL lightOn;
+@property (nonatomic) BOOL isPartyMode;
 @property (nonatomic) NSMutableArray *hueColors;
 @property (nonatomic) int index;
 

@@ -50,32 +50,15 @@
 {
     NSLog(@"posed : %u",pose.poseType);
     if (pose.poseType == MyoPoseTypeFingersSpread){
-        NSString *urlString = [NSString stringWithFormat:@"http://192.168.2.2/api/newdeveloper/lights/3/state/"];
-        NSURL *url = [NSURL URLWithString:urlString];
-        
-        NSMutableURLRequest* request = [[NSMutableURLRequest alloc] init];
-        [request setURL:url];
-        
-        NSString *jsonBody;
+        NSString *messageBody;
         if(self.lightOn){
-            jsonBody = [NSString stringWithFormat: @"{\"on\":false, \"transitiontime\":1}"];
+            messageBody = [NSString stringWithFormat: @"{\"on\":false, \"transitiontime\":1}"];
             self.lightOn = false;
         }else{
-            jsonBody = [NSString stringWithFormat: @"{\"on\":true}"];
+            messageBody = [NSString stringWithFormat: @"{\"on\":true, \"transitiontime\":1}"];
             self.lightOn = true;
         }
-        
-        NSData* bodyData = [jsonBody dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-        NSString* postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[bodyData length]];
-        NSString *method = @"PUT";
-        
-        [request setHTTPMethod:method];
-        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        [request setHTTPBody:bodyData];
-        
-        [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-        NSLog(@"strobe to %i", self.lightOn);
+        [self updateHueWithMessageBody:messageBody];
     }
     
     if (pose.poseType == MyoPoseTypeWaveOut) {
@@ -84,25 +67,8 @@
         else
             self.index++;
         
-        NSString *urlString = [NSString stringWithFormat:@"http://192.168.2.2/api/newdeveloper/lights/3/state/"];
-        NSURL *url = [NSURL URLWithString:urlString];
-        
-        NSMutableURLRequest* request = [[NSMutableURLRequest alloc] init];
-        [request setURL:url];
-        
-        NSString *jsonBody = [NSString stringWithFormat: @"{\"hue\":%@}", [self.hueColors objectAtIndex:self.index]];
-        
-        NSData* bodyData = [jsonBody dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-        NSString* postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[bodyData length]];
-        NSString *method = @"PUT";
-        
-        [request setHTTPMethod:method];
-        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        [request setHTTPBody:bodyData];
-        
-        [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-        
+        NSString *messageBody = [NSString stringWithFormat: @"{\"hue\":%@}", [self.hueColors objectAtIndex:self.index]];
+        [self updateHueWithMessageBody:messageBody];
     }
     
     if (pose.poseType == MyoPoseTypeWaveIn){
@@ -110,26 +76,45 @@
             self.index = 19;
         else
             self.index--;
-        NSString *urlString = [NSString stringWithFormat:@"http://192.168.2.2/api/newdeveloper/lights/3/state/"];
-        NSURL *url = [NSURL URLWithString:urlString];
         
-        NSMutableURLRequest* request = [[NSMutableURLRequest alloc] init];
-        [request setURL:url];
-        
-        NSString *jsonBody = [NSString stringWithFormat: @"{\"hue\":%@}", [self.hueColors objectAtIndex:self.index]];
-        
-        NSData* bodyData = [jsonBody dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
-        NSString* postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[bodyData length]];
-        NSString *method = @"PUT";
-        
-        [request setHTTPMethod:method];
-        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-        [request setHTTPBody:bodyData];
-        
-        [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+        NSString *messageBody = [NSString stringWithFormat: @"{\"hue\":%@}", [self.hueColors objectAtIndex:self.index]];
+        [self updateHueWithMessageBody:messageBody];
     }
+    
+    if (pose.poseType == MyoPoseTypeThumbToPinky) {
+        if(self.isPartyMode) {
+            NSString *messageBody = [NSString stringWithFormat: @"{\"effect\":\"none\"}"];
+            [self updateHueWithMessageBody:messageBody];
+            self.isPartyMode = false;
+        } else {
+            NSString *messageBody = [NSString stringWithFormat: @"{\"effect\":\"colorloop\"}"];
+            [self updateHueWithMessageBody:messageBody];
+            self.isPartyMode = true;
+        }
+    }
+    
     //[myo vibrateWithType:MyoVibrationTypeShort];
 }
+
+-(void)updateHueWithMessageBody:(NSString *)messageBody{
+    NSString *urlString = [NSString stringWithFormat:@"http://192.168.2.2/api/newdeveloper/lights/3/state/"];
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] init];
+    [request setURL:url];
+    
+    NSData* bodyData = [messageBody dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
+    NSString* postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[bodyData length]];
+    NSString *method = @"PUT";
+    
+    [request setHTTPMethod:method];
+    [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setHTTPBody:bodyData];
+    
+    [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    NSLog(@"strobe to %i", self.lightOn);
+}
+
 
 @end
