@@ -33,15 +33,26 @@
 }
 -(void)myo:(Myo *)myo onAccelerometerDataWithVector:(MyoVector*)vector
 {
-    NSLog(@"accelerometer x %f y %f z %f mag %f", vector.x, vector.y, vector.z, vector.magnitude);
+//    NSLog(@"accelerometer x %f y %f z %f mag %f", vector.x, vector.y, vector.z, vector.magnitude);
 }
 -(void)myo:(Myo *)myo onGyroscopeDataWithVector:(MyoVector*)vector
 {
-    NSLog(@"gyroscope x %f y %f z %f mag %f", vector.x, vector.y, vector.z, vector.magnitude);
+//    NSLog(@"gyroscope x %f y %f z %f mag %f", vector.x, vector.y, vector.z, vector.magnitude);
+    
+    int x = (int)roundf(vector.x);
+    x -= x % 10;
+    NSLog(@"rotation %i", x);
+
+    
+    NSNumber *adjustedBrightness = [NSNumber numberWithInt:([self.currentBrightness intValue] + x )];
+    if (self.state == MYHStateAdjustingBrightness) {
+        NSString *messageBody = [NSString stringWithFormat: @"{\"bri\":%@}", adjustedBrightness];
+        [self updateHueWithMessageBody:messageBody];
+    }
 }
 -(void)myo:(Myo *)myo onOrientationDataWithRoll:(int)roll pitch:(int)pitch yaw:(int)yaw
 {
-    NSLog(@"orientation roll %i pitch %i yaw %i", roll, pitch, yaw);
+//    NSLog(@"orientation roll %i pitch %i yaw %i", roll, pitch, yaw);
 }
 -(void)myo:(Myo *)myo onRssi:(int8_t)rssi
 {
@@ -50,7 +61,7 @@
 -(void)myo:(Myo *)myo onPose:(MyoPose *)pose
 {
     NSLog(@"posed : %u",pose.poseType);
-    if (pose.poseType == MyoPoseTypeFingersSpread){
+    if (pose.poseType == MyoPoseTypeFingersSpread) {
         NSString *messageBody;
         if(self.lightOn){
             messageBody = [NSString stringWithFormat: @"{\"on\":false, \"transitiontime\":1}"];
@@ -92,6 +103,10 @@
             [self updateHueWithMessageBody:messageBody];
             self.isPartyMode = true;
         }
+    }
+    
+    if (pose.poseType == MyoPoseTypeFist) {
+        self.state = MYHStateAdjustingBrightness;
     }
     
     //[myo vibrateWithType:MyoVibrationTypeShort];

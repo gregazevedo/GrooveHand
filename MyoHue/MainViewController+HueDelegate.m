@@ -32,13 +32,13 @@
         NSDictionary *lightDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         // Add to internal state
         NSNumber *dict = [[lightDict objectForKey:@"state"] objectForKey:@"on"];
-        NSNumber *initialColor = [[lightDict objectForKey:@"state"] objectForKey:@"hue"];
+        self.initialColor = [[lightDict objectForKey:@"state"] objectForKey:@"hue"];
+        self.currentBrightness = [[lightDict objectForKey:@"state"] objectForKey:@"bri"];
         self.lightOn = [dict isEqualToNumber:@1] ? YES : NO;
-        self.initialColor = initialColor;
     }];
 }
 
--(void)updateHueWithMessageBody:(NSString *)messageBody{
+-(void)updateHueWithMessageBody:(NSString *)messageBody {
     NSString *urlString = [NSString stringWithFormat:@"http://192.168.2.2/api/newdeveloper/lights/3/state/"];
     NSURL *url = [NSURL URLWithString:urlString];
     
@@ -57,6 +57,5 @@
     [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     NSLog(@"strobe to %i", self.lightOn);
 }
-
 
 @end
