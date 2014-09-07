@@ -7,7 +7,8 @@
 //
 
 #import "MainViewController+MyoDelegate.h"
-#import "MainViewController+HueDelegate.h"
+#import "MYHHueConnection.h"
+#import "MyoMusicPlayer.h"
 
 @implementation MainViewController (MyoDelegate)
 
@@ -42,8 +43,6 @@
     x = vector.usbTowardsWrist ? x : -x;
     //    x -= x % 10;
 //    NSLog(@"rotation vec x %f int x %i", vector.x, x);
-
-
 }
 
 -(void)myo:(Myo *)myo onOrientationDataWithRoll:(int)roll pitch:(int)pitch yaw:(int)yaw
@@ -64,7 +63,7 @@
     NSLog(@"Myo on rssi");
 }
 
--(void)myo:(Myo *)myo onPose:(MyoPose *)pose
+-(void)updateLightsForPose:(MyoPoseType)pose
 {
     self.state = MYHStateDefault;
     NSLog(@"Current Pose: %@", pose);
@@ -72,23 +71,52 @@
         case MyoPoseTypeRest:
             break;
         case MyoPoseTypeFingersSpread:
-            [self toggleLightOn];
+            [self.lights toggleLightOn];
             break;
         case MyoPoseTypeWaveOut:
-            [self updateToNextHue];
+            [self.lights updateToNextHue];
             break;
         case MyoPoseTypeWaveIn:
-            [self updateToPreviousHue];
+            [self.lights updateToPreviousHue];
             break;
         case MyoPoseTypeFist:
             self.state = MYHStateAdjustingBrightness;
             break;
         case MyoPoseTypeThumbToPinky:
-            [self togglePartyMode];
+            [self.lights togglePartyMode];
+            break;
+        case MyoPoseTypeReserved:
             break;
     }
-    
-    
+}
+
+-(void)updateMusicForPose:(MyoPoseType)pose
+{
+    switch (pose) {
+        case MyoPoseTypeFist:
+            NSLog(@"fist made");
+            break;
+        case MyoPoseTypeFingersSpread:
+            [self.player toggleMusic];
+            NSLog(@"togglemusic");
+            break;
+        case MyoPoseTypeWaveIn:
+            [self.player playNextSong];
+            break;
+        case MyoPoseTypeWaveOut:
+            [self.player playLastSong];
+            break;
+    }
+}
+
+-(void)myo:(Myo *)myo onPose:(MyoPose *)pose
+{
+//    self.state = MYHStateDefault;
+    if (self.mode == MYHModeLights) {
+        [self updateLightsForPose:pose.poseType];
+    } else if (self.mode == MYHModeMusic) {
+        [self updateMusicForPose:pose.poseType];
+    }
     //[myo vibrateWithType:MyoVibrationTypeShort];
 }
 

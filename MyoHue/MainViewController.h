@@ -9,26 +9,19 @@
 #import <Cocoa/Cocoa.h>
 #import "MyoStuff.h"
 
-typedef NS_ENUM(NSUInteger, MYHState) {
-    MYHStateDefault,
-    MYHStatePartyMode,
-    MYHStateAdjustingBrightness
+@class MyoMusicPlayer, MYHHueConnection;
+
+typedef NS_ENUM(NSUInteger, MYHMode) {
+    MYHModeLights,
+    MYHModeMusic
 };
 
 @interface MainViewController : NSViewController <MyoDelegate>
 
-@property (nonatomic) BOOL lightOn;
-@property (nonatomic) BOOL isPartyMode;
-@property (nonatomic) NSMutableArray *hueColors;
-@property (nonatomic) int index;
-@property (nonatomic) NSNumber *initialColor;
-@property (nonatomic) NSNumber *currentBrightness;
-@property (nonatomic) MYHState state;
+@property (nonatomic) MyoMusicPlayer *player;
+@property (nonatomic) MYHHueConnection *lights;
+@property (nonatomic) MYHMode mode;
 
-@property (nonatomic) NSTimer *brightnessIncreaseTimer;
-@property (nonatomic) NSTimer *brightnessDecreaseTimer;
-
-
-@property (nonatomic) int latestNoFistRoll;
+//@property (nonatomic) int latestNoFistRoll;
 
 @end

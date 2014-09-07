@@ -1,14 +1,24 @@
 //
-//  MainViewController+HueDelegate.m
+//  MYHHueConnection.m
 //  MyoHue
 //
 //  Created by Greg Azevedo on 9/6/14.
 //  Copyright (c) 2014 Gregory Azevedo. All rights reserved.
 //
 
-#import "MainViewController+HueDelegate.h"
+#import "MYHHueConnection.h"
 
-@implementation MainViewController (HueDelegate)
+@implementation MYHHueConnection
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        self.index = 0;
+        self.isPartyMode = false;
+    }
+    return self;
+}
 
 -(void)toggleLightOn
 {
@@ -31,7 +41,7 @@
         self.isPartyMode = false;
     } else {
         NSString *messageBody = [NSString stringWithFormat: @"{\"effect\":\"colorloop\"}"];
-//        [self updateHueWithMessageBody:messageBody];
+        [self updateHueWithMessageBody:messageBody];
         self.isPartyMode = true;
     }
 }
@@ -145,7 +155,7 @@
     [request setHTTPBody:bodyData];
     
     [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-//    NSLog(@"strobe to %i", self.lightOn);
+    //    NSLog(@"strobe to %i", self.lightOn);
 }
 
 @end

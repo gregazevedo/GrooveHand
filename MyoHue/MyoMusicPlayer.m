@@ -10,8 +10,9 @@
 
 @interface MyoMusicPlayer()
 @property (nonatomic) AVAudioPlayer *songPlayer;
-@property (nonatomic) NSMutableArray *songList;
+@property (nonatomic) NSArray *songList;
 @property (nonatomic) int songIndex;
+@property (nonatomic) BOOL isPlaying;
 
 @end
 @implementation MyoMusicPlayer
@@ -21,8 +22,8 @@
     self = [super init];
     if (self) {
         self.songIndex = 0;
-        self.songList = [NSMutableArray new];
-        [self createPlaylist];
+//        self.songList = [NSMutableArray new];
+//        [self createPlaylist];
     }
     return self;
 }
@@ -36,23 +37,31 @@
 }
 
 -(void)playMusic {
+    if (!self.songPlayer) {
+        NSString *title = [self.songList firstObject];
+        [self playSongWithName:title];
+    }
     [self.songPlayer play];
+    self.isPlaying = true;
 }
 
 -(void)pauseMusic {
     [self.songPlayer pause];
+    self.isPlaying = false;
 }
 
 -(void)stopMusic {
     [self.songPlayer stop];
+    self.isPlaying = false;
 }
 
 -(void)playNextSong {
-    self.songIndex++;
+   self.songIndex++;
     if(self.songIndex == 15) {
         self.songIndex = 0;
     }
     [self playSongWithName:[self.songList objectAtIndex:self.songIndex]];
+    self.isPlaying = true;
 }
 
 -(void)playLastSong {
@@ -62,24 +71,25 @@
         self.songIndex--;
     }
     [self playSongWithName:[self.songList objectAtIndex:self.songIndex]];
+    self.isPlaying = true;
 }
 
--(void)createPlaylist {
-    [self.songList addObject:@"YoungBlood"];
-    [self.songList addObject:@"SweetNothing"];
-    [self.songList addObject:@"NeverLetYouGo"];
-    [self.songList addObject:@"ShakeItOut"];
-    [self.songList addObject:@"APunk"];
-    [self.songList addObject:@"Daylight"];
-    [self.songList addObject:@"OneHeadlight"];
-    [self.songList addObject:@"RedHands"];
-    [self.songList addObject:@"DropsofJupiter"];
-    [self.songList addObject:@"CrookedTeeth"];
-    [self.songList addObject:@"SweetDisposition"];
-    [self.songList addObject:@"Houdini"];
-    [self.songList addObject:@"LittleSecrets"];
-    [self.songList addObject:@"Years"];
-    [self.songList addObject:@"TimeToPretend"];
+-(void) toggleMusic {
+    if(self.isPlaying) {
+        [self pauseMusic];
+    } else {
+        [self playMusic];
+    }
+}
+
+-(NSArray *)songList
+{
+    if (!_songList) {
+        _songList = @[@"YoungBlood",@"SweetNothing", @"NeverLetYouGo", @"ShakeItOut", @"APunk",@"Daylight",@"OneHeadlight",@"RedHands",@"DropsofJupiter",
+                      @"CrookedTeeth",@"SweetDisposition",@"Houdini",
+                      @"LittleSecrets",@"Years",@"TimeToPretend"];
+    }
+    return _songList;
 }
 
 @end

@@ -24,7 +24,7 @@
 		89242DC419BBCA2200D89E42 /* MainViewController+MyoDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89242DC319BBCA2200D89E42 /* MainViewController+MyoDelegate.m */; };
 		89242DC619BBD64000D89E42 /* myo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 89242DC519BBD64000D89E42 /* myo.framework */; };
 		89242DC719BBD66000D89E42 /* myo.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 89242DC519BBD64000D89E42 /* myo.framework */; };
-		89242DCA19BBDA8100D89E42 /* MainViewController+HueDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 89242DC919BBDA8100D89E42 /* MainViewController+HueDelegate.m */; };
+		89242DD319BC0E5000D89E42 /* MYHHueConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 89242DD219BC0E5000D89E42 /* MYHHueConnection.m */; };
 		BF777B2719BBF47100489DD6 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BF777B2619BBF47100489DD6 /* AVFoundation.framework */; };
 		BF777B2D19BBF8B900489DD6 /* TimeToPretend.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BF777B2C19BBF8B900489DD6 /* TimeToPretend.mp3 */; };
 		BF777B2F19BBF92600489DD6 /* CrookedTeeth.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = BF777B2E19BBF92600489DD6 /* CrookedTeeth.mp3 */; };
@@ -95,8 +95,8 @@
 		89242DC219BBCA2200D89E42 /* MainViewController+MyoDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MainViewController+MyoDelegate.h"; sourceTree = "<group>"; };
 		89242DC319BBCA2200D89E42 /* MainViewController+MyoDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MainViewController+MyoDelegate.m"; sourceTree = "<group>"; };
 		89242DC519BBD64000D89E42 /* myo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = myo.framework; path = MyoHue/myo.framework; sourceTree = "<group>"; };
-		89242DC819BBDA8100D89E42 /* MainViewController+HueDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MainViewController+HueDelegate.h"; sourceTree = "<group>"; };
-		89242DC919BBDA8100D89E42 /* MainViewController+HueDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MainViewController+HueDelegate.m"; sourceTree = "<group>"; };
+		89242DD119BC0E5000D89E42 /* MYHHueConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYHHueConnection.h; sourceTree = "<group>"; };
+		89242DD219BC0E5000D89E42 /* MYHHueConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYHHueConnection.m; sourceTree = "<group>"; };
 		BF777B2619BBF47100489DD6 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		BF777B2C19BBF8B900489DD6 /* TimeToPretend.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = TimeToPretend.mp3; sourceTree = "<group>"; };
 		BF777B2E19BBF92600489DD6 /* CrookedTeeth.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = CrookedTeeth.mp3; sourceTree = "<group>"; };
@@ -190,10 +190,10 @@
 				89242D8A19BB93B100D89E42 /* MYHAppDelegate.m */,
 				89242DAB19BB971500D89E42 /* MainViewController.h */,
 				89242DAC19BB971500D89E42 /* MainViewController.mm */,
+				89242DD119BC0E5000D89E42 /* MYHHueConnection.h */,
+				89242DD219BC0E5000D89E42 /* MYHHueConnection.m */,
 				BF777B3019BBFCB600489DD6 /* MyoMusicPlayer.h */,
 				BF777B3119BBFCB600489DD6 /* MyoMusicPlayer.m */,
-				89242DC819BBDA8100D89E42 /* MainViewController+HueDelegate.h */,
-				89242DC919BBDA8100D89E42 /* MainViewController+HueDelegate.m */,
 				89242DC219BBCA2200D89E42 /* MainViewController+MyoDelegate.h */,
 				89242DC319BBCA2200D89E42 /* MainViewController+MyoDelegate.m */,
 				FAA184EC19BB9FF7005ABEE2 /* MyoStuff.h */,
@@ -379,9 +379,9 @@
 			files = (
 				89242DC419BBCA2200D89E42 /* MainViewController+MyoDelegate.m in Sources */,
 				FAA184F119BBA41F005ABEE2 /* MyoStuff.mm in Sources */,
-				89242DCA19BBDA8100D89E42 /* MainViewController+HueDelegate.m in Sources */,
 				89242D8419BB93B100D89E42 /* main.m in Sources */,
 				89242DAE19BB971500D89E42 /* MainViewController.mm in Sources */,
+				89242DD319BC0E5000D89E42 /* MYHHueConnection.m in Sources */,
 				BF777B3219BBFCB600489DD6 /* MyoMusicPlayer.m in Sources */,
 				89242D8B19BB93B100D89E42 /* MYHAppDelegate.m in Sources */,
 			);

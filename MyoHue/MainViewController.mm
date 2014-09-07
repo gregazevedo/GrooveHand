@@ -7,8 +7,8 @@
 //
 
 #import "MainViewController.h"
-#import "MainViewController+HueDelegate.h"
 #import "MyoMusicPlayer.h"
+#import "MYHHueConnection.h"
 
 @interface MainViewController ()
 
@@ -16,7 +16,6 @@
 @property (weak) IBOutlet NSButton *musicButton;
 @property (nonatomic) NSTimer *timer;
 @property (nonatomic) Myo *myMyo;
-@property (nonatomic) MyoMusicPlayer *player;
 
 @end
 
@@ -27,9 +26,9 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.index = 0;
         self.player = [MyoMusicPlayer new];
-        self.isPartyMode = false;
+        self.lights = [MYHHueConnection new];
+        self.mode = MYHModeLights;
     }
     return self;
 }
@@ -37,8 +36,8 @@
 -(void)awakeFromNib {
     
     [super awakeFromNib];
-    [self retrieveInitialHueInfo];
-    [self createColors];
+    [self.lights retrieveInitialHueInfo];
+    [self.lights createColors];
     self.myMyo = [[Myo alloc] initWithApplicationIdentifier:@"com.example.myoobjc"];
     BOOL found = false;
     while (!found) {
@@ -49,6 +48,7 @@
 }
 
 - (IBAction)lightsButtonPushed:(id)sender {
+    self.mode = MYHModeLights;
     
     if([self.musicButton state] == 1){
         [self.musicButton setState:0];
@@ -60,13 +60,28 @@
     }
 }
 
+//-(void)setMode:(MYHMode)mode
+//{
+//    switch(mode) {
+//        case MYHModeLights:
+//            break;
+//        case MYHModeMusic:
+//            break;
+//    }
+//    _mode = mode;
+//
+//}
+
 - (IBAction)musicButtonPushed:(id)sender {
+    self.mode = MYHModeMusic;
+
     if([self.lightsButton state] == 1){
         [self.lightsButton setState:0];
     }
     
     if([self.musicButton state] == 1) {
         NSLog(@"Pressed music");
+        [self.myMyo startUpdate];
     }
 }
 
