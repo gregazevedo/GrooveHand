@@ -159,17 +159,6 @@
     [request setHTTPBody:bodyData];
     
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-        if (data) {
-            NSDictionary *lightDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-            NSLog(@"LIGHT INFO: %@", lightDict);
-            NSNumber *dict = [[lightDict objectForKey:@"state"] objectForKey:@"on"];
-            self.initialColor = [[lightDict objectForKey:@"state"] objectForKey:@"hue"];
-            self.currentBrightness = [[lightDict objectForKey:@"state"] objectForKey:@"bri"];
-            self.lightOn = [dict isEqualToNumber:@1] ? YES : NO;
-        } else {
-            self.initialColor = @0;
-            self.currentBrightness = @0;
-        }
     }];
 
     

@@ -60,19 +60,21 @@
 
 -(void)playNextSong {
     self.songIndex++;
-    if(self.songIndex == 15) {
+    if(self.songIndex >= 16) {
         self.songIndex = 0;
     }
+    [self.songPlayer stop];
     [self playSongWithName:[self.songList objectAtIndex:self.songIndex]];
     self.isPlaying = true;
 }
 
 -(void)playLastSong {
-    if(self.songIndex == 0) {
+    if(self.songIndex <= 0) {
         self.songIndex = 16;
     } else {
         self.songIndex--;
     }
+    [self.songPlayer stop];
     [self playSongWithName:[self.songList objectAtIndex:self.songIndex]];
     self.isPlaying = true;
 }
