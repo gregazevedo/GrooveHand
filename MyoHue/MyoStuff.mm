@@ -30,21 +30,17 @@ public:
         float yaw = atan2(2.0f * (quat.w() * quat.z() + quat.x() * quat.y()),
                           1.0f - 2.0f * (quat.y() * quat.y() + quat.z() * quat.z()));
         
-        if (initalRoll) {
-            currentRoll = initalRoll - roll*100;
-        } else {
-            initalRoll = roll*100;
-            currentRoll = initalRoll;
+        if(usbOrientation == libmyo_x_direction_toward_elbow){
+            roll = -roll;
+            roll = roll*100;
         }
-//        std::cout << " roll " << adjustedRoll << '\n';
-
+        
         // Convert the floating point angles in radians to a scale from 0 to 20.
         roll_w = static_cast<int>((roll + (float)M_PI)/(M_PI * 2.0f) * 18);
         pitch_w = static_cast<int>((pitch + (float)M_PI/2.0f)/M_PI * 18);
         yaw_w = static_cast<int>((yaw + (float)M_PI)/(M_PI * 2.0f) * 18);
-        
         if ([_myo.delegate respondsToSelector:@selector(myo:onOrientationDataWithRoll:pitch:yaw:)]) {
-            [_myo.delegate myo:_myo onOrientationDataWithRoll:currentRoll pitch:pitch_w yaw:yaw_w];
+            [_myo.delegate myo:_myo onOrientationDataWithRoll:roll pitch:pitch_w yaw:yaw_w];
         }
     }
     
@@ -263,7 +259,7 @@ public:
         //Background Thread
         while (update) {
             hub.run(_updateTime);
-            collector.print();
+            //collector.print();
         }
         dispatch_async(dispatch_get_main_queue(), ^(void){
             //Run UI Updates

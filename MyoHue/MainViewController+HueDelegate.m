@@ -14,10 +14,10 @@
 {
     NSString *messageBody;
     if(self.lightOn){
-        messageBody = [NSString stringWithFormat: @"{\"on\":false, \"transitiontime\":1}"];
+        messageBody = [NSString stringWithFormat: @"{\"on\":false}"];
         self.lightOn = false;
     }else{
-        messageBody = [NSString stringWithFormat: @"{\"on\":true, \"transitiontime\":1}"];
+        messageBody = [NSString stringWithFormat: @"{\"on\":true}"];
         self.lightOn = true;
     }
     [self updateHueWithMessageBody:messageBody];
@@ -60,20 +60,21 @@
 
 -(void)increaseBrightness
 {
-    self.currentBrightness = [NSNumber numberWithInt:([self.currentBrightness intValue] + 25)];
+    self.currentBrightness = [NSNumber numberWithInt:([self.currentBrightness intValue] + 5)];
+
     if ([self.currentBrightness intValue] < 0) {
         self.currentBrightness = @0;
-    } else if ([self.currentBrightness intValue] > 255) {
+    } else if ([self.currentBrightness intValue] >= 255) {
         self.currentBrightness = @255;
     }
+    
     NSString *messageBody = [NSString stringWithFormat: @"{\"bri\":%@}", self.currentBrightness];
     [self updateHueWithMessageBody:messageBody];
 }
 
--(void)decreaseBrightness
-{
-    self.currentBrightness = [NSNumber numberWithInt:([self.currentBrightness intValue] - 25)];
-    if ([self.currentBrightness intValue] < 0) {
+-(void)decreaseBrightness{
+    self.currentBrightness = [NSNumber numberWithInt:([self.currentBrightness intValue] - 5)];
+    if ([self.currentBrightness intValue] <= 0) {
         self.currentBrightness = @0;
     } else if ([self.currentBrightness intValue] > 255) {
         self.currentBrightness = @255;
@@ -84,18 +85,18 @@
 
 -(void)adjustBrightnessWithRotation:(int)rotation
 {
-    BOOL isIncreasingBrightness = (BOOL)self.brightnessIncreaseTimer;
-    BOOL isDecreasingBrightness = (BOOL)self.brightnessDecreaseTimer;
-    BOOL shouldIncrease = rotation > 0;
-    BOOL shouldDecrease = rotation < 0;
-    
-    if (shouldIncrease && !isIncreasingBrightness) {
-        self.brightnessIncreaseTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(increaseBrightness) userInfo:nil repeats:YES];
-        self.brightnessDecreaseTimer = nil;
-    } else if (shouldDecrease && !isDecreasingBrightness) {
-        self.brightnessDecreaseTimer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(decreaseBrightness) userInfo:nil repeats:YES];
-        self.brightnessIncreaseTimer = nil;
+    BOOL shouldIncrease = rotation > 30;
+    BOOL shouldDecrease = rotation < -30;
+    if (shouldIncrease) {
+        [self.brightnessDecreaseTimer invalidate];
+        self.brightnessIncreaseTimer = [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(increaseBrightness) userInfo:nil repeats:NO];
+        [self.brightnessIncreaseTimer fire];
+    } else if (shouldDecrease) {
+        [self.brightnessIncreaseTimer invalidate];
+        self.brightnessDecreaseTimer = [NSTimer scheduledTimerWithTimeInterval:0.3 target:self selector:@selector(decreaseBrightness) userInfo:nil repeats:NO];
+        [self.brightnessDecreaseTimer fire];
     }
+    
 }
 
 -(void)createColors {
@@ -108,7 +109,7 @@
 }
 
 -(void)retrieveInitialHueInfo {
-    NSString *urlString = [NSString stringWithFormat:@"http://192.168.2.2/api/newdeveloper/lights/3"];
+    NSString *urlString = [NSString stringWithFormat:@"http://192.168.2.2/api/newdeveloper/lights/1"];
     NSURL *url = [NSURL URLWithString:urlString];
     
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] init];
@@ -119,6 +120,7 @@
         
         NSDictionary *lightDict = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
         // Add to internal state
+        NSLog(@"LIGHT INFO: %@", lightDict);
         NSNumber *dict = [[lightDict objectForKey:@"state"] objectForKey:@"on"];
         self.initialColor = [[lightDict objectForKey:@"state"] objectForKey:@"hue"];
         self.currentBrightness = [[lightDict objectForKey:@"state"] objectForKey:@"bri"];
@@ -127,7 +129,7 @@
 }
 
 -(void)updateHueWithMessageBody:(NSString *)messageBody {
-    NSString *urlString = [NSString stringWithFormat:@"http://192.168.2.2/api/newdeveloper/lights/3/state/"];
+    NSString *urlString = [NSString stringWithFormat:@"http://192.168.2.2/api/newdeveloper/lights/1/state/"];
     NSURL *url = [NSURL URLWithString:urlString];
     
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] init];
@@ -136,7 +138,7 @@
     NSData* bodyData = [messageBody dataUsingEncoding:NSASCIIStringEncoding allowLossyConversion:YES];
     NSString* postLength = [NSString stringWithFormat:@"%lu", (unsigned long)[bodyData length]];
     NSString *method = @"PUT";
-    
+    NSLog(@"BODY DATA: %@", messageBody);
     [request setHTTPMethod:method];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];

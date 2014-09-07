@@ -56,14 +56,13 @@
     if([self.lightsButton state] == 1){
         [self.myMyo startUpdate];
     }else{
-        [self.timer invalidate];
+        [self.myMyo stopUpdate];
     }
 }
 
 - (IBAction)musicButtonPushed:(id)sender {
     if([self.lightsButton state] == 1){
         [self.lightsButton setState:0];
-        [self.timer invalidate];
     }
     
     if([self.musicButton state] == 1) {
